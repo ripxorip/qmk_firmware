@@ -6,12 +6,16 @@
 enum layers
 {
     BASE = 0,
-    PINKY,
+    GDB,
     FN
 };
 
 enum custom_keycodes {
   P_PARENT = SAFE_RANGE,
+  GDB_C,
+  GDB_SI,
+  GDB_NI,
+  GDB_FIN
 };
 
 
@@ -21,6 +25,42 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         // when keycode P_PARENT is pressed
         SEND_STRING("cd .."SS_TAP(X_ENTER)"");
+      } else {
+        // when keycode P_PARENT is released
+      }
+      break;
+
+    case GDB_C:
+      if (record->event.pressed) {
+        // when keycode P_PARENT is pressed
+        SEND_STRING("c"SS_TAP(X_ENTER)"");
+      } else {
+        // when keycode P_PARENT is released
+      }
+      break;
+
+    case GDB_SI:
+      if (record->event.pressed) {
+        // when keycode P_PARENT is pressed
+        SEND_STRING("si"SS_TAP(X_ENTER)"");
+      } else {
+        // when keycode P_PARENT is released
+      }
+      break;
+
+    case GDB_NI:
+      if (record->event.pressed) {
+        // when keycode P_PARENT is pressed
+        SEND_STRING("ni"SS_TAP(X_ENTER)"");
+      } else {
+        // when keycode P_PARENT is released
+      }
+      break;
+
+    case GDB_FIN:
+      if (record->event.pressed) {
+        // when keycode P_PARENT is pressed
+        SEND_STRING("fin"SS_TAP(X_ENTER)"");
       } else {
         // when keycode P_PARENT is released
       }
@@ -47,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
 
      [BASE] = LAYOUT( //  default layer
-        KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSLS, KC_GRV,
+        LT(GDB, KC_ESC), KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSLS, KC_GRV,
         LT(FN, KC_TAB), KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSPC,
         KC_LCTL, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT,
         KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, MO(FN),
@@ -88,8 +128,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *         `----------------------------------------------------------------´
      */
 
-    [PINKY] = LAYOUT(
-        KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSLS, KC_GRV,
+    [GDB] = LAYOUT(
+        KC_ESC, KC_1, KC_2, KC_3, KC_4, GDB_C, KC_6, KC_7, KC_8, KC_9, GDB_NI, GDB_SI, GDB_FIN, KC_BSLS, KC_GRV,
         KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSPC,
         KC_LCTL, KC_A, KC_S, KC_D, KC_F, KC_G, KC_BSPC, KC_ENT, KC_TRNS, KC_TAB, KC_SCLN, KC_QUOT, KC_ENT,
         KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, P_PARENT, KC_SLSH, KC_RSFT, MO(FN),
