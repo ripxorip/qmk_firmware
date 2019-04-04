@@ -15,6 +15,7 @@ enum custom_keycodes {
   VIM_Gt,
   VIM_GT,
   VIM_TABE,
+  VIM_TE,
   GDB_C,
   GDB_SI,
   GDB_NI,
@@ -96,6 +97,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
 
+    case VIM_TE:
+      if (record->event.pressed) {
+        // when keycode P_PARENT is pressed
+        SEND_STRING(":te ");
+      } else {
+        // when keycode P_PARENT is released
+      }
+      break;
+
 
   }
   return true;
@@ -140,7 +150,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [FN] = LAYOUT(
         KC_PWR, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_INS, KC_DEL,
-        KC_CAPS, KC_TRNS, KC_TRNS, VIM_TABE, KC_TRNS, KC_TRNS, KC_TRNS, KC_PGUP, VIM_GT, VIM_Gt, KC_PAUS, KC_UP, KC_TRNS, KC_BSPC,
+        KC_CAPS, KC_TRNS, KC_TRNS, VIM_TABE, KC_TRNS, VIM_TE, KC_TRNS, KC_PGUP, VIM_GT, VIM_Gt, KC_PAUS, KC_UP, KC_TRNS, KC_BSPC,
         KC_LCTL, KC_A, KC_S, KC_PGDN, KC_F, KC_G, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_SCLN, KC_QUOT, KC_ENT,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PPLS, KC_PMNS, KC_END, P_PARENT, KC_DOWN, KC_TRNS, RESET,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
