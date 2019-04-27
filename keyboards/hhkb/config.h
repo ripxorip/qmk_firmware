@@ -20,6 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
+#define MOUSEKEY_INTERVAL 16
+#define MOUSEKEY_DELAY 0
+#define MOUSEKEY_TIME_TO_MAX 40
+#define MOUSEKEY_MAX_SPEED 7
+#define MOUSEKEY_WHEEL_DELAY 0
+
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0xCAFE
@@ -36,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #define MATRIX_COLS 8
 
-#define TAPPING_TERM    150
+#define TAPPING_TERM    200
 
 /* number of backlight levels */
 #define BACKLIGHT_LEVELS 3
