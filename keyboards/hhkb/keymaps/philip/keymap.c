@@ -9,6 +9,7 @@ enum layers
     GDB,
     FN,
     NORMAL,
+    VI_INS,
     MOUSE
 };
 
@@ -29,12 +30,22 @@ enum custom_keycodes {
   TMUX_RESIZE_PANE_H,
   TMUX_RESIZE_PANE_J,
   TMUX_RESIZE_PANE_K,
-  TMUX_RESIZE_PANE_L
+  TMUX_RESIZE_PANE_L,
+  CTRL_W
 };
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
+    case CTRL_W:
+      if (record->event.pressed) {
+        // when keycode P_PARENT is pressed
+        SEND_STRING(SS_LCTRL("w"));
+      } else {
+        // when keycode P_PARENT is released
+      }
+      break;
+
     case TMUX_RESIZE_PANE_H:
       if (record->event.pressed) {
         // when keycode P_PARENT is pressed
@@ -197,7 +208,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      [BASE] = LAYOUT( //  default layer
         LT(GDB, KC_ESC), KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSLS, KC_GRV,
         LT(FN, KC_TAB), KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSPC,
-        KC_LCTL, LT(MOUSE, KC_A), KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT,
+        KC_LCTL, LT(VI_INS, KC_A), KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT,
         KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, MO(FN),
         KC_LGUI, KC_LALT, /*        */ (KC_SPC), KC_RGUI, KC_RALT),
 
@@ -263,6 +274,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, LT(MOUSE, KC_A), KC_S, KC_PGDN, KC_F, KC_G, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_BTN1, KC_BTN2, KC_ENT,
         KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, P_PARENT, KC_SLSH, KC_RSFT, MO(FN),
         KC_LGUI, KC_LALT, /*        */ (LT(MOUSE, KC_SPACE)), KC_RGUI, KC_RALT),
+
+    /* VI insert layer: Layer used to replace the most common right hand pinky keys such as enter and backspace
+     * ,-----------------------------------------------------------------------------------------.
+     * | PWR |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |  -  |  =  |  \  |  `  |
+     * |-----------------------------------------------------------------------------------------+
+     * | Tab    |  Q  |  W  |  E  |  R  |  T  |  Y  | PGU |  I  |  O  |  P  |  [  |  ]  |  Bksp  |
+     * |-----------------------------------------------------------------------------------------+
+     * | Ctrl    |  A  |  S  | PGD |  F  |  G  | LEF | DOW | UP  | RIG |  ;  |  '  |    Enter    |
+     * |-----------------------------------------------------------------------------------------+
+     * | Shift     |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  | par |  /  | Shift     | RES |
+     * +-----------------------------------------------------------------------------------------+
+     *         | Alt |  Gui   |               Space               | Gui   | Alt |
+     *         `----------------------------------------------------------------´
+     */
+
+    [VI_INS] = LAYOUT(
+        KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSLS, KC_GRV,
+        KC_TAB, KC_Q, CTRL_W, KC_E, KC_R, KC_T, KC_Y, KC_WH_U, KC_MS_U, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSPC,
+        KC_LCTL, KC_A, KC_S, KC_WH_D, KC_F, KC_G, KC_BSPC, KC_ENT, KC_MS_D, KC_MS_R, KC_BTN1, KC_BTN2, KC_ENT,
+        KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, P_PARENT, KC_SLSH, KC_RSFT, MO(FN),
+        KC_LGUI, KC_LALT, /*        */ (KC_BTN1), KC_RGUI, KC_RALT),
 
     /* Mouse layer: Layer used to replace the most common right hand pinky keys such as enter and backspace
      * ,-----------------------------------------------------------------------------------------.
