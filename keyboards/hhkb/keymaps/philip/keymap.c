@@ -35,6 +35,8 @@ enum custom_keycodes {
 };
 
 
+static bool ascii_code_ctrl = false;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case CTRL_W:
@@ -163,6 +165,87 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
 
+    case KC_LCTL:
+      if (record->event.pressed) {
+      }
+      else
+      {
+        ascii_code_ctrl = false;
+      }
+      break;
+
+    /* Make all applications respect ASCII codes */
+    case KC_J:
+      if (record->event.pressed) {
+        // when keycode P_PARENT is pressed
+        if (keyboard_report->mods & (MOD_BIT(KC_LCTL)))
+        {
+            ascii_code_ctrl = true;
+            unregister_code(KC_LCTL);
+            register_code(KC_ENT);
+            return false;
+        }
+        else if (ascii_code_ctrl)
+        {
+            register_code(KC_ENT);
+            return false;
+        }
+
+      }
+      else {
+        // when keycode P_PARENT is released
+        unregister_code(KC_ENT);
+      }
+      break;
+
+
+    /* Make all applications respect ASCII codes */
+    case KC_I:
+      if (record->event.pressed) {
+        // when keycode P_PARENT is pressed
+        if (keyboard_report->mods & (MOD_BIT(KC_LCTL)))
+        {
+            ascii_code_ctrl = true;
+            unregister_code(KC_LCTL);
+            register_code(KC_TAB);
+            return false;
+        }
+        else if (ascii_code_ctrl)
+        {
+            register_code(KC_TAB);
+            return false;
+        }
+
+      }
+      else {
+        // when keycode P_PARENT is released
+        unregister_code(KC_TAB);
+      }
+      break;
+
+    /* Make all applications respect ASCII codes */
+    case KC_H:
+      if (record->event.pressed) {
+        // when keycode P_PARENT is pressed
+        if (keyboard_report->mods & (MOD_BIT(KC_LCTL)))
+        {
+            ascii_code_ctrl = true;
+            unregister_code(KC_LCTL);
+            register_code(KC_BSPC);
+            return false;
+        }
+        else if (ascii_code_ctrl)
+        {
+            register_code(KC_BSPC);
+            return false;
+        }
+
+      }
+      else {
+        // when keycode P_PARENT is released
+        unregister_code(KC_BSPC);
+      }
+      break;
 
   }
   return true;
