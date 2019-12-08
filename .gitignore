@@ -1,4 +1,4 @@
-compile-commands.json
+compile_commands.json
 .ccls-cache/
 .history/
 .dep
