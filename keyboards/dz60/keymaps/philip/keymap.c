@@ -52,29 +52,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
 
-
-    /* Make all applications respect ASCII codes */
-    case KC_I:
-      if (record->event.pressed) {
-        if (keyboard_report->mods & (MOD_BIT(KC_LCTL)))
-        {
-            ascii_code_ctrl = true;
-            unregister_code(KC_LCTL);
-            register_code(KC_TAB);
-            return false;
-        }
-        else if (ascii_code_ctrl)
-        {
-            register_code(KC_TAB);
-            return false;
-        }
-
-      }
-      else {
-        unregister_code(KC_TAB);
-      }
-      break;
-
     /* Make all applications respect ASCII codes */
     case KC_H:
       if (record->event.pressed) {
