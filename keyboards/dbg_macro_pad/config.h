@@ -31,6 +31,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 7
 
+/* Encoders */
+#define ENCODERS_PAD_A {D5, B6}
+#define ENCODERS_PAD_B {D6, B5}
+
 /*
  * Keyboard Matrix Assignments
  *
