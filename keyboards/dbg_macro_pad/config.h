@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID 0x0666
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Philip Karlsson Gisslow
-#define PRODUCT DBG_Macro_Pad
+#define PRODUCT Debug Macro Pad
 #define DESCRIPTION The debug Macro Pad
 
 /* key matrix size */
