@@ -23,33 +23,28 @@ enum layer_names {
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
-    QMKBEST = SAFE_RANGE,
-    QMKURL
+    CUSTOM_RUN_PAUSE = SAFE_RANGE
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
-    [BASE] = LAYOUT(KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, MO(FN)),
+    [BASE] = LAYOUT(LCTL(KC_F5), KC_F5, KC_F4, KC_F10, KC_F11, LSFT(KC_F11), MO(FN)),
     [FN] = LAYOUT(RESET, RESET, KC_C, KC_D, KC_E, KC_F, KC_G)
 
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case QMKBEST:
+        case CUSTOM_RUN_PAUSE:
             if (record->event.pressed) {
-                // when keycode QMKBEST is pressed
-                SEND_STRING("QMK is the best thing ever!");
+                static bool run = false;
+                if (run)
+                    SEND_STRING(SS_TAP(X_F5));
+                else
+                    SEND_STRING(SS_DOWN(X_LCTL)SS_TAP(X_F5)SS_UP(X_LCTL));
+                run = !run;
             } else {
                 // when keycode QMKBEST is released
-            }
-            break;
-        case QMKURL:
-            if (record->event.pressed) {
-                // when keycode QMKURL is pressed
-                SEND_STRING("https://qmk.fm/\n");
-            } else {
-                // when keycode QMKURL is released
             }
             break;
     }
@@ -59,15 +54,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* First encoder */
         if (clockwise) {
-            tap_code(KC_H);
+            tap_code(KC_F10);
         } else {
-            tap_code(KC_J);
+            tap_code(KC_F10);
         }
     } else if (index == 1) { /* Second encoder */
         if (clockwise) {
-            tap_code(KC_K);
+            tap_code(KC_F11);
         } else {
-            tap_code(KC_L);
+            tap_code(KC_F11);
         }
     }
 }
