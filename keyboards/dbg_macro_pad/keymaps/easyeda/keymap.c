@@ -28,8 +28,8 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
-    [BASE] = LAYOUT(LCTL(KC_F5), KC_F5, KC_F4, KC_F10, KC_F11, LSFT(KC_F11), MO(FN)),
-    [FN] = LAYOUT(RESET, RESET, KC_C, KC_D, KC_E, KC_F, KC_G)
+    [BASE] = LAYOUT(KC_B, KC_W, KC_ESC, KC_SPACE, KC_MS_BTN3, KC_MS_BTN1, MO(FN)),
+    [FN] = LAYOUT(RESET, RESET, KC_BSPACE, KC_V, KC_B, KC_T, KC_G)
 
 };
 
@@ -54,15 +54,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* First encoder */
         if (clockwise) {
-            tap_code(KC_F10);
+            tap_code(KC_EQUAL);
         } else {
-            tap_code(KC_F10);
+            tap_code(KC_MINUS);
         }
     } else if (index == 1) { /* Second encoder */
         if (clockwise) {
-            tap_code(KC_F11);
+            tap_code(KC_A);
         } else {
-            tap_code(KC_F11);
+            tap_code(KC_Z);
         }
     }
 }

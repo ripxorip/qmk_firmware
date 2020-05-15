@@ -54,15 +54,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* First encoder */
         if (clockwise) {
-            tap_code(KC_F10);
+            tap_code(KC_WH_R);
         } else {
-            tap_code(KC_F10);
+            tap_code(KC_WH_L);
         }
     } else if (index == 1) { /* Second encoder */
         if (clockwise) {
-            tap_code(KC_F11);
+            SEND_STRING(SS_DOWN(X_LCMD)SS_TAP(X_KP_PLUS)SS_UP(X_LCMD));
         } else {
-            tap_code(KC_F11);
+            SEND_STRING(SS_DOWN(X_LCMD)SS_TAP(X_KP_MINUS)SS_UP(X_LCMD));
         }
     }
 }
