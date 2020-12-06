@@ -11,6 +11,6 @@ and media controls in the function layer (centered around the ESDF cluster).
 
 ## Function layer
 
-![Function layer layout](https://i.imgur.com/Q304GlI.png)
+![Function layer layout](https://i.imgur.com/CsxfVfd.png)
 
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/f29128427f674c43777f045e363d1b44))

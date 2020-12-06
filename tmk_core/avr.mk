@@ -120,15 +120,16 @@ define EXEC_DFU
 	if $(DFU_PROGRAMMER) --version 2>&1 | $(GREP) -q 0.7 ; then\
 		$(DFU_PROGRAMMER) $(MCU) erase --force; \
 		if [ "$(1)" ]; then \
-			$(DFU_PROGRAMMER) $(MCU) flash --eeprom $(QUANTUM_PATH)/split_common/$(1);\
+			$(DFU_PROGRAMMER) $(MCU) flash --force --eeprom $(QUANTUM_PATH)/split_common/$(1);\
 		fi; \
+		$(DFU_PROGRAMMER) $(MCU) flash --force $(BUILD_DIR)/$(TARGET).hex;\
 	else \
 		$(DFU_PROGRAMMER) $(MCU) erase; \
 		if [ "$(1)" ]; then \
 			$(DFU_PROGRAMMER) $(MCU) flash-eeprom $(QUANTUM_PATH)/split_common/$(1);\
 		fi; \
+		$(DFU_PROGRAMMER) $(MCU) flash $(BUILD_DIR)/$(TARGET).hex;\
 	fi; \
-	$(DFU_PROGRAMMER) $(MCU) flash $(BUILD_DIR)/$(TARGET).hex;\
 	$(DFU_PROGRAMMER) $(MCU) reset
 endef
 
@@ -141,7 +142,7 @@ dfu-start:
 
 dfu-ee: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
 	if $(DFU_PROGRAMMER) --version 2>&1 | $(GREP) -q 0.7 ; then\
-		$(DFU_PROGRAMMER) $(MCU) flash --eeprom $(BUILD_DIR)/$(TARGET).eep;\
+		$(DFU_PROGRAMMER) $(MCU) flash --force --eeprom $(BUILD_DIR)/$(TARGET).eep;\
 	else\
 		$(DFU_PROGRAMMER) $(MCU) flash-eeprom $(BUILD_DIR)/$(TARGET).eep;\
 	fi
@@ -167,6 +168,7 @@ define EXEC_AVRDUDE
 			USB=`comm -13 /tmp/1 /tmp/2 | $(GREP) -o '/dev/tty.*'`; \
 			mv /tmp/2 /tmp/1; \
 		done; \
+		rm $$TMP1; \
 		echo ""; \
 		echo "Device $$USB has appeared; assuming it is the controller."; \
 		if $(GREP) -q -s 'MINGW\|MSYS' /proc/version; then \

@@ -33,17 +33,90 @@
 #define CSA_C_CEDILLA KC_RBRACKET  // Ç
 #define CSA_CCED CSA_C_CEDILLA
 
-// Third row
-#define CSA_E_GRAVE KC_QUOT  // è
-#define CSA_EGRV CSA_E_GRAVE
-#define CSA_A_GRAVE KC_BSLASH  // à
-#define CSA_AGRV CSA_A_GRAVE
+/* AltGr symbols
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+ * │ | │   │   │   │ ¤ │   │   │ { │ } │ [ │ ] │   │ ¬ │       │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+ * │     │   │   │ € │   │   │   │   │   │   │   │ ` │ ~ │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │      │   │   │   │   │   │   │   │   │   │ ° │   │   │    │
+ * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
+ * │    │   │ « │ » │   │   │   │   │   │ < │ > │   │          │
+ * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
+ * │    │    │    │                        │    │    │    │    │
+ * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
+ */
+// Row 1
+#define CA_PIPE ALGR(CA_SLSH) // |
+#define CA_CURR ALGR(CA_4)    // ¤
+#define CA_LCBR ALGR(CA_7)    // {
+#define CA_RCBR ALGR(CA_8)    // }
+#define CA_LBRC ALGR(CA_9)    // [
+#define CA_RBRC ALGR(CA_0)    // ]
+#define CA_NOT  ALGR(CA_EQL)  // ¬
+// Row 2
+#define CA_EURO ALGR(CA_E)    // €
+#define CA_GRV  ALGR(CA_CIRC) // ` (dead)
+#define CA_DTIL ALGR(CA_CCED) // ~ (dead)
+// Row 3
+#define CA_DEG  ALGR(CA_SCLN) // °
+// Row 4
+#define CA_LDAQ ALGR(CA_X)    // «
+#define CA_RDAQ ALGR(CA_C)    // »
+#define CA_LABK ALGR(CA_COMM) // <
+#define CA_RABK ALGR(CA_DOT)  // >
 
-// Fourth row
-#define CSA_U_GRAVE KC_NONUS_BSLASH  // ù
-#define CSA_UGRV CSA_U_GRAVE
-#define CSA_E_ACUTE KC_SLSH  // é
-#define CSA_ECUT CSA_E_ACUTE
+/* Right Ctrl symbols
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+ * │   │ ¹ │ ² │ ³ │ ¼ │ ½ │ ¾ │   │   │   │   │   │ ¸ │       │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+ * │     │ Ω │ Ł │ Œ │ ¶ │ Ŧ │ ← │ ↓ │ → │ Ø │ Þ │   │ ~ │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │      │ Æ │ ß │ Ð │   │ Ŋ │ Ħ │ Ĳ │ ĸ │ Ŀ │ ´ │   │   │    │
+ * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
+ * │    │   │   │   │ ¢ │ “ │ ” │ ŉ │ μ │ ― │ ˙ │   │          │
+ * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
+ * │    │    │    │                        │    │    │    │    │
+ * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
+ */
+// Row 1
+#define CA_SUP1 RCTL(CA_1)    // ¹
+#define CA_SUP2 RCTL(CA_2)    // ²
+#define CA_SUP3 RCTL(CA_3)    // ³
+#define CA_QRTR RCTL(CA_4)    // ¼
+#define CA_HALF RCTL(CA_5)    // ½
+#define CA_TQTR RCTL(CA_6)    // ¾
+#define CA_CEDL RCTL(CA_EQL)  // ¸ (dead)
+// Row 2
+#define CA_OMEG RCTL(CA_Q)    // Ω
+#define CA_LSTR RCTL(CA_W)    // Ł
+#define CA_OE   RCTL(CA_E)    // Œ
+#define CA_PARA RCTL(CA_R)    // ¶
+#define CA_TSTR RCTL(CA_T)    // Ŧ
+#define CA_LARR RCTL(CA_Y)    // ←
+#define CA_DARR RCTL(CA_U)    // ↓
+#define CA_RARR RCTL(CA_I)    // →
+#define CA_OSTR RCTL(CA_O)    // Ø
+#define CA_THRN RCTL(CA_P)    // Þ
+#define CA_TILD RCTL(CA_CCED) // ~
+// Row 3
+#define CA_AE   RCTL(CA_A)    // Æ
+#define CA_SS   RCTL(CA_S)    // ß
+#define CA_ETH  RCTL(CA_D)    // Ð
+#define CA_ENG  RCTL(CA_G)    // Ŋ
+#define CA_HSTR RCTL(CA_H)    // Ħ
+#define CA_IJ   RCTL(CA_J)    // Ĳ
+#define CA_KRA  RCTL(CA_K)    // ĸ
+#define CA_LMDT RCTL(CA_L)    // Ŀ
+#define CA_ACUT RCTL(CA_SCLN) // ´ (dead)
+// Row 4
+#define CA_CENT RCTL(CA_C)    // ¢
+#define CA_LDQU RCTL(CA_V)    // “
+#define CA_RDQU RCTL(CA_B)    // ”
+#define CA_APSN RCTL(CA_N)    // ŉ
+#define CA_MICR RCTL(CA_M)    // μ
+#define CA_HRZB RCTL(CA_COMM) // ―
+#define CA_DOTA RCTL(CA_DOT)  // ˙ (dead)
 
 // Shifted characters
 // First row

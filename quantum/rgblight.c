@@ -122,20 +122,22 @@ void rgblight_set_effect_range(uint8_t start_pos, uint8_t num_leds) {
     rgblight_ranges.effect_num_leds  = num_leds;
 }
 
+__attribute__((weak)) RGB rgblight_hsv_to_rgb(HSV hsv) { return hsv_to_rgb(hsv); }
+
 void sethsv_raw(uint8_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) {
     HSV hsv = {hue, sat, val};
-    RGB rgb = hsv_to_rgb(hsv);
+    RGB rgb = rgblight_hsv_to_rgb(hsv);
     setrgb(rgb.r, rgb.g, rgb.b, led1);
 }
 
 void sethsv(uint8_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) { sethsv_raw(hue, sat, val > RGBLIGHT_LIMIT_VAL ? RGBLIGHT_LIMIT_VAL : val, led1); }
 
 void setrgb(uint8_t r, uint8_t g, uint8_t b, LED_TYPE *led1) {
-    (*led1).r = r;
-    (*led1).g = g;
-    (*led1).b = b;
+    led1->r = r;
+    led1->g = g;
+    led1->b = b;
 #ifdef RGBW
-    (*led1).w = 0;
+    led1->w = 0;
 #endif
 }
 
@@ -367,6 +369,8 @@ void rgblight_disable_noeeprom(void) {
     rgblight_set();
 }
 
+bool rgblight_is_enabled(void) { return rgblight_config.enable; }
+
 void rgblight_increase_hue_helper(bool write_to_eeprom) {
     uint8_t hue = rgblight_config.hue + RGBLIGHT_HUE_STEP;
     rgblight_sethsv_eeprom_helper(hue, rgblight_config.sat, rgblight_config.val, write_to_eeprom);
@@ -403,17 +407,26 @@ void rgblight_decrease_val_helper(bool write_to_eeprom) {
 }
 void rgblight_decrease_val_noeeprom(void) { rgblight_decrease_val_helper(false); }
 void rgblight_decrease_val(void) { rgblight_decrease_val_helper(true); }
-void rgblight_increase_speed(void) {
+
+void rgblight_increase_speed_helper(bool write_to_eeprom) {
     if (rgblight_config.speed < 3) rgblight_config.speed++;
     // RGBLIGHT_SPLIT_SET_CHANGE_HSVS; // NEED?
-    eeconfig_update_rgblight(rgblight_config.raw);  // EECONFIG needs to be increased to support this
+    if (write_to_eeprom) {
+        eeconfig_update_rgblight(rgblight_config.raw);  // EECONFIG needs to be increased to support this
+    }
 }
+void rgblight_increase_speed(void) { rgblight_increase_speed_helper(true); }
+void rgblight_increase_speed_noeeprom(void) { rgblight_increase_speed_helper(false); }
 
-void rgblight_decrease_speed(void) {
+void rgblight_decrease_speed_helper(bool write_to_eeprom) {
     if (rgblight_config.speed > 0) rgblight_config.speed--;
     // RGBLIGHT_SPLIT_SET_CHANGE_HSVS; // NEED??
-    eeconfig_update_rgblight(rgblight_config.raw);  // EECONFIG needs to be increased to support this
+    if (write_to_eeprom) {
+        eeconfig_update_rgblight(rgblight_config.raw);  // EECONFIG needs to be increased to support this
+    }
 }
+void rgblight_decrease_speed(void) { rgblight_decrease_speed_helper(true); }
+void rgblight_decrease_speed_noeeprom(void) { rgblight_decrease_speed_helper(false); }
 
 void rgblight_sethsv_noeeprom_old(uint8_t hue, uint8_t sat, uint8_t val) {
     if (rgblight_config.enable) {
@@ -521,6 +534,8 @@ uint8_t rgblight_get_sat(void) { return rgblight_config.sat; }
 
 uint8_t rgblight_get_val(void) { return rgblight_config.val; }
 
+HSV rgblight_get_hsv(void) { return (HSV){rgblight_config.hue, rgblight_config.sat, rgblight_config.val}; }
+
 void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b) {
     if (!rgblight_config.enable) {
         return;
@@ -623,6 +638,13 @@ void rgblight_set_layer_state(uint8_t layer, bool enabled) {
     if (rgblight_status.timer_enabled == false) {
         rgblight_mode_noeeprom(rgblight_config.mode);
     }
+
+#    ifdef RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
+    // If not enabled, then nothing else will actually set the LEDs...
+    if (!rgblight_config.enable) {
+        rgblight_set();
+    }
+#    endif
 }
 
 bool rgblight_get_layer_state(uint8_t layer) {
@@ -658,20 +680,40 @@ static void rgblight_layers_write(void) {
         }
     }
 }
+
+#    ifdef RGBLIGHT_LAYER_BLINK
+rgblight_layer_mask_t _blinked_layer_mask = 0;
+uint16_t              _blink_duration     = 0;
+static uint16_t       _blink_timer;
+
+void rgblight_blink_layer(uint8_t layer, uint16_t duration_ms) {
+    rgblight_set_layer_state(layer, true);
+    _blinked_layer_mask |= 1 << layer;
+    _blink_timer    = timer_read();
+    _blink_duration = duration_ms;
+}
+
+void rgblight_unblink_layers(void) {
+    if (_blinked_layer_mask != 0 && timer_elapsed(_blink_timer) > _blink_duration) {
+        for (uint8_t layer = 0; layer < RGBLIGHT_MAX_LAYERS; layer++) {
+            if ((_blinked_layer_mask & 1 << layer) != 0) {
+                rgblight_set_layer_state(layer, false);
+            }
+        }
+        _blinked_layer_mask = 0;
+    }
+}
+#    endif
+
 #endif
 
 __attribute__((weak)) void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds) { ws2812_setleds(start_led, num_leds); }
 
 #ifndef RGBLIGHT_CUSTOM_DRIVER
+
 void rgblight_set(void) {
     LED_TYPE *start_led;
     uint8_t   num_leds = rgblight_ranges.clipping_num_leds;
-
-#    ifdef RGBLIGHT_LAYERS
-    if (rgblight_layers != NULL) {
-        rgblight_layers_write();
-    }
-#    endif
 
     if (!rgblight_config.enable) {
         for (uint8_t i = rgblight_ranges.effect_start_pos; i < rgblight_ranges.effect_end_pos; i++) {
@@ -683,6 +725,16 @@ void rgblight_set(void) {
 #    endif
         }
     }
+
+#    ifdef RGBLIGHT_LAYERS
+    if (rgblight_layers != NULL
+#        ifndef RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
+        && rgblight_config.enable
+#        endif
+    ) {
+        rgblight_layers_write();
+    }
+#    endif
 
 #    ifdef RGBLIGHT_LED_MAP
     LED_TYPE led0[RGBLED_NUM];
@@ -1100,16 +1152,39 @@ void rgblight_effect_knight(animation_status_t *anim) {
 #endif
 
 #ifdef RGBLIGHT_EFFECT_CHRISTMAS
-void rgblight_effect_christmas(animation_status_t *anim) {
-    uint8_t hue;
-    uint8_t i;
+#    define CUBED(x) ((x) * (x) * (x))
 
-    anim->current_offset = (anim->current_offset + 1) % 2;
+/**
+ * Christmas lights effect, with a smooth animation between red & green.
+ */
+void rgblight_effect_christmas(animation_status_t *anim) {
+    static int8_t increment = 1;
+    const uint8_t max_pos   = 32;
+    const uint8_t hue_green = 85;
+
+    uint32_t xa;
+    uint8_t  hue, val;
+    uint8_t  i;
+
+    // The effect works by animating anim->pos from 0 to 32 and back to 0.
+    // The pos is used in a cubic bezier formula to ease-in-out between red and green, leaving the interpolated colors visible as short as possible.
+    xa  = CUBED((uint32_t)anim->pos);
+    hue = ((uint32_t)hue_green) * xa / (xa + CUBED((uint32_t)(max_pos - anim->pos)));
+    // Additionally, these interpolated colors get shown with a slightly darker value, to make them less prominent than the main colors.
+    val = 255 - (3 * (hue < hue_green / 2 ? hue : hue_green - hue) / 2);
+
     for (i = 0; i < rgblight_ranges.effect_num_leds; i++) {
-        hue = 0 + ((i / RGBLIGHT_EFFECT_CHRISTMAS_STEP + anim->current_offset) % 2) * 85;
-        sethsv(hue, rgblight_config.sat, rgblight_config.val, (LED_TYPE *)&led[i + rgblight_ranges.effect_start_pos]);
+        uint8_t local_hue = (i / RGBLIGHT_EFFECT_CHRISTMAS_STEP) % 2 ? hue : hue_green - hue;
+        sethsv(local_hue, rgblight_config.sat, val, (LED_TYPE *)&led[i + rgblight_ranges.effect_start_pos]);
     }
     rgblight_set();
+
+    if (anim->pos == 0) {
+        increment = 1;
+    } else if (anim->pos == max_pos) {
+        increment = -1;
+    }
+    anim->pos += increment;
 }
 #endif
 
