@@ -1,5 +1,9 @@
 #pragma once
 
+/* Helpers */
+#define ________  KC_TRNS
+#define _________ KC_TRNS
+
 #define RIPXORIP_5x6(\
   L00, L01, L02, L03, L04, L05,                          R00, R01, R02, R03, R04, R05, \
   L10, L11, L12, L13, L14, L15,                          R10, R11, R12, R13, R14, R15, \
@@ -26,6 +30,28 @@
     { R50, R51, R52, R53, KC_NO, KC_NO }  \
 }
 
+#define RIPXORIP_5x6_WRAPPER(...) RIPXORIP_5x6(__VA_ARGS__)
+
+/* QWERTY */
+#define _____________QWERTY_L1_____________  KC_Q   , KC_W   , KC_E   , KC_R   , KC_T
+#define _____________QWERTY_L2_____________  KC_A   , KC_S   , KC_D   , KC_F   , KC_G
+#define _____________QWERTY_L3_____________  KC_Z   , KC_X   , KC_C   , KC_V   , KC_B
+
+#define _____________QWERTY_R1_____________  KC_Y   , KC_U   , KC_I   , KC_O   , KC_P
+#define _____________QWERTY_R2_____________  KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN
+#define _____________QWERTY_R3_____________  KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH
+
+/* COLEMAKE-DHm */
+#define _____________CM_DHm_L1_____________  KC_Q   , KC_W   , KC_F   , KC_P   , KC_B
+#define _____________CM_DHm_L2_____________  KC_A   , KC_R   , KC_S   , KC_T   , KC_G
+#define _____________CM_DHm_L3_____________  KC_Z   , KC_X   , KC_C   , KC_D   , KC_V
+
+#define _____________CM_DHm_R1_____________  KC_J   , KC_L   , KC_U   , KC_Y   , KC_SCLN
+#define _____________CM_DHm_R2_____________  KC_M   , KC_N   , KC_E   , KC_I   , KC_O
+#define _____________CM_DHm_R3_____________  KC_K   , KC_H   , KC_COMM, KC_DOT , KC_SLSH
+
+#if 0
+/* Below is kept for reference */
 #if (!defined(LAYOUT) && defined(KEYMAP))
 #    define LAYOUT KEYMAP
 #endif
@@ -98,3 +124,4 @@
 #define _________________SYMBOL_R1_________________  KC_BSLS, KC_P7, KC_P8 , KC_P9, KC_PAST
 #define _________________SYMBOL_R2_________________  KC_EQL , KC_P4, KC_P5, KC_P6, KC_PPLS
 #define _________________SYMBOL_R3_________________  KC_ASTR, KC_P1, KC_P2, KC_P3, KC_PMNS
+#endif
