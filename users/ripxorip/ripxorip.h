@@ -50,6 +50,13 @@
 #define _____________CM_DHm_R2_____________  KC_M   , KC_N   , KC_E   , KC_I   , KC_O
 #define _____________CM_DHm_R3_____________  KC_K   , KC_H   , KC_COMM, KC_DOT , KC_SLSH
 
+/* Numbers and fn for noobs */
+#define ____________NUMBERS_L______________  KC_1, KC_2, KC_3, KC_4, KC_5
+#define ____________NUMBERS_R______________  KC_6, KC_7, KC_8, KC_9, KC_0
+
+#define __________________F_L______________  KC_F1, KC_F2, KC_F3, KC_F4, KC_F5
+#define __________________F_R______________  KC_F6, KC_F7, KC_F8, KC_F9, KC_F10
+
 #if 0
 /* Below is kept for reference */
 #if (!defined(LAYOUT) && defined(KEYMAP))
