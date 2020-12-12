@@ -16,6 +16,15 @@ enum layers
     UTIL_MISC
 };
 
+const uint8_t HIGHEST_BASE = BASE_CM_DHm+1;
+
+enum ripxorip_keycodes
+{
+    NEXT_BASE = SAFE_RANGE
+};
+
+static uint8_t current_layer = 0;
+
 /* EMPTY BASE:
          _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
          _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
@@ -88,17 +97,53 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                            _______, _______,                                                            _______, _______,
                                                 _______, _______,                 _______, _______,
                                                     _______, _______,         _______, _______,
-                                                    _______, RESET,           _______, _______
+                                                    _______, RESET,           NEXT_BASE, _______
     )
 };
+
+/* Set layer according to index */
+static void set_layer(void)
+{
+    if (BASE_CM_DHm == current_layer)
+    {
+        rgblight_sethsv_noeeprom(201, 200, 100);
+        rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+        layer_move(BASE_CM_DHm);
+    }
+    else if (BASE_QWERTY == current_layer)
+    {
+        rgblight_sethsv_noeeprom(148, 170, 170);
+        rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+        layer_move(BASE_QWERTY);
+    }
+    else
+    {
+        /* DO NOTHING */
+    }
+}
 
 void keyboard_post_init_user(void)
 {
     /* Set static blue LEDs */
     rgblight_enable_noeeprom(); // Enables RGB, without saving settings
-    rgblight_sethsv_noeeprom(170, 170, 100);
-    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+    set_layer();
 }
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case NEXT_BASE:
+      if (record->event.pressed) {
+          current_layer = (current_layer + 1) % HIGHEST_BASE;
+          set_layer();
+      }
+      else
+      {
+          /* DO NOTHING */
+      }
+      break;
+  }
+  return true;
+};
 
 #if 0
 /* Below is kept for reference only */
