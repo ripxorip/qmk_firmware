@@ -162,24 +162,20 @@ void keyboard_post_init_user(void)
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    /* Pro layers */
-    if (current_layer != BASE_NOOB)
-    {
-        switch (keycode) {
-            case NEXT_BASE:
-                if (record->event.pressed) {
-                    current_layer = (current_layer + 1) % HIGHEST_BASE;
-                    set_layer();
-                }
-                else
-                {
-                    /* DO NOTHING */
-                }
-                break;
-        }
+    switch (keycode) {
+        case NEXT_BASE:
+            if (record->event.pressed) {
+                current_layer = (current_layer + 1) % HIGHEST_BASE;
+                set_layer();
+            }
+            else
+            {
+                /* DO NOTHING */
+            }
+            break;
     }
-    /* Noob layers */
-    else
+    /* Noob layers stuff... */
+    if (current_layer == BASE_NOOB)
     {
         static bool ascii_code_ctrl = false;
         bool process_record_user(uint16_t keycode, keyrecord_t *record) {
