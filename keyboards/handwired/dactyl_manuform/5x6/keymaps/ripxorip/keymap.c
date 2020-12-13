@@ -15,7 +15,7 @@ enum layers
     UTIL_NUM,
     /* Layer shifting, flashing, LEDS, etc.. */
     UTIL_MISC,
-    UTIL_UNICODE,
+    UTIL_MACRO,
     UTIL_NAV,
     UTIL_FN,
     UTIL_NOOB
@@ -51,10 +51,10 @@ static uint8_t current_layer = 0;
 
 
 /* Common thumb cluster for the base layouts */
-#define __BASE_THUMBS__              _______, _______,                                                  LCTL(KC_A), _______, \
-                                            LT(UTIL_NUM, KC_BSPC), LT(UTIL_SYM, KC_SPC),      LT(UTIL_NAV, KC_ENT), MO(UTIL_UNICODE), \
-                                                            _______,       _______,                  _______, _______, \
-                                                            MO(UTIL_MISC), _______,                  _______, _______
+#define __BASE_THUMBS__                         _______, _______,                                 KC_LBRC, KC_RBRC, \
+                                            LT(UTIL_SYM, KC_BSPC), LT(UTIL_NUM, KC_SPC),      LT(UTIL_NAV, KC_ENT), MO(UTIL_MACRO), \
+                                                         MO(UTIL_MISC), _______,             _______, _______, \
+                                                            _______, _______,                  _______, _______
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE_CM_DHm] = RIPXORIP_5x6_WRAPPER(
@@ -79,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_LSFT, _____________QWERTY_L3_____________       ,                        _____________QWERTY_R3_____________        , KC_BSLASH,
                            KC_LSFT, KC_RBRC,                                                            KC_LBRC, KC_RBRC,
                                                 KC_LALT, KC_SPC,                     KC_LCTL, MO(UTIL_NOOB),
-                                                    LCTL(KC_A), KC_LALT,         KC_LALT, KC_LGUI,
+                                                    MO(UTIL_MISC), KC_LALT,         KC_LALT, KC_LGUI,
                                                     MO(UTIL_MISC), _______,      KC_E, KC_F
     ),
 
@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [UTIL_NUM] = RIPXORIP_5x6_WRAPPER(
          _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
          _______, _______, _______, _______, _______, _______,                        _______, KC_7,    KC_8,    KC_9,    _______, _______,
-         _______, _______, _______, _______, _______, _______,                        _______, KC_4,    KC_5,    KC_6,    _______, _______,
+         _______, _______, _______, _______, _______, _______,                        _______, KC_4,    KC_5,    KC_6,    KC_0,    _______,
          _______, _______, _______, _______, _______, _______,                        _______, KC_1,    KC_2,    KC_3,    _______, _______,
                            _______, _______,                                                            KC_0,    _______,
                                                 _______, _______,                 _______, _______,
@@ -99,8 +99,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [UTIL_SYM] = RIPXORIP_5x6_WRAPPER(
          _______, _______, _______, _______, _______, _______,                       _______, _______, _______, _______, _______, _______,
          _______, LSFT(KC_1), LSFT(KC_2), LSFT(KC_3), LSFT(KC_4), LSFT(KC_5),        LSFT(KC_6), LSFT(KC_7), LSFT(KC_8), LSFT(KC_9), LSFT(KC_0), _______,
-         _______, KC_TAB, KC_LSFT, KC_LBRC, KC_RBRC, _______,                        _______, LSFT(KC_LBRC), LSFT(KC_RBRC), KC_MINS, KC_QUOT, _______,
-         _______, KC_ESC, _______, _______, KC_GRV, _______,                        _______, _______, _______, _______, KC_BSLASH, _______,
+         _______, KC_TAB, KC_LSFT, LSFT(KC_LBRC), LSFT(KC_RBRC), _______,            _______, KC_LBRC, KC_RBRC, LSFT(KC_MINS), KC_QUOT, _______,
+         _______, KC_ESC, KC_ESC, _______, _______, _______,                        _______, KC_MINS, KC_EQL, KC_GRV, KC_BSLASH, _______,
                            _______, _______,                                                            _______, _______,
                                                 _______, _______,                 _______, _______,
                                                     _______, _______,         _______, _______,
@@ -117,10 +117,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     _______, _______,         _______, _______,
                                                     _______, _______,         _______, _______
     ),
-    [UTIL_UNICODE] = RIPXORIP_5x6_WRAPPER(
+    [UTIL_MACRO] = RIPXORIP_5x6_WRAPPER(
          _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
          _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, UC(L'å'), _______,
-         _______, _______, _______, _______, _______, _______,                        _______, _______, _______, UC(L'ö'), UC(L'ä'), _______,
+         _______, _______, _______, _______, _______, _______,                        _______, LCTL(KC_A), _______, UC(L'ö'), UC(L'ä'), _______,
          _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
                            _______, _______,                                                            _______, _______,
                                                 _______, MO(UTIL_FN),                 _______, _______,
@@ -154,8 +154,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
                            _______, _______,                                                            _______, _______,
                                                 _______, _______,                 _______, _______,
-                                                    _______, _______,         _______, _______,
-                                                    _______, RESET,           NEXT_BASE, _______
+                                                    _______, RESET,            NEXT_BASE, _______,
+                                                    _______, _______,           _______, _______
     )
 };
 
