@@ -170,13 +170,13 @@ static void set_layer(void)
     }
     else if (BASE_QWERTY == current_layer)
     {
-        rgblight_sethsv_noeeprom(148, 170, 127);
+        rgblight_sethsv_noeeprom(85, 200, 170);
         rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
         layer_move(BASE_QWERTY);
     }
     else if (BASE_NOOB == current_layer)
     {
-        rgblight_sethsv_noeeprom(85, 200, 170);
+        rgblight_sethsv_noeeprom(148, 170, 127);
         rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
         layer_move(BASE_NOOB);
     }
@@ -189,7 +189,7 @@ static void set_layer(void)
 void keyboard_post_init_user(void)
 {
     /* Set static blue LEDs */
-    current_layer = BASE_QWERTY;
+    current_layer = BASE_NOOB;
     rgblight_enable_noeeprom(); // Enables RGB, without saving settings
     set_layer();
 }
