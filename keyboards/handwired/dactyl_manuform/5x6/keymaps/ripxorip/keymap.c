@@ -77,8 +77,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          LT(UTIL_NOOB, KC_TAB), _____________QWERTY_L1_____________,                 _____________QWERTY_R1_____________        , KC_MINS,
          KC_LCTL, _____________QWERTY_L2_____________       ,                        _____________QWERTY_R2_____________        , KC_QUOT,
          KC_LSFT, _____________QWERTY_L3_____________       ,                        _____________QWERTY_R3_____________        , KC_BSLASH,
-                           KC_LSFT, KC_RBRC,                                                            KC_LBRC, KC_RBRC,
-                                                KC_LALT, KC_SPC,                     KC_LCTL, MO(UTIL_NOOB),
+                           KC_LSFT, KC_GRV,                                                            KC_LBRC, KC_RBRC,
+                                                KC_LALT, KC_SPC,                     KC_BSPC, KC_ENT,
                                                     MO(UTIL_MISC), KC_LALT,         KC_LALT, KC_LGUI,
                                                     MO(UTIL_MISC), _______,      KC_E, KC_F
     ),
@@ -211,62 +211,60 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (current_layer == BASE_NOOB)
     {
         static bool ascii_code_ctrl = false;
-        bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-            switch (keycode) {
-                case KC_LCTL:
-                    if (record->event.pressed) {
-                    }
-                    else
+        switch (keycode) {
+            case KC_LCTL:
+                if (record->event.pressed) {
+                }
+                else
+                {
+                    ascii_code_ctrl = false;
+                }
+                break;
+
+                /* Make all applications respect ASCII codes */
+            case KC_J:
+                if (record->event.pressed) {
+                    if (keyboard_report->mods & (MOD_BIT(KC_LCTL)))
                     {
-                        ascii_code_ctrl = false;
+                        ascii_code_ctrl = true;
+                        unregister_code(KC_LCTL);
+                        register_code(KC_ENT);
+                        return false;
                     }
-                    break;
+                    else if (ascii_code_ctrl)
+                    {
+                        register_code(KC_ENT);
+                        return false;
+                    }
 
-                    /* Make all applications respect ASCII codes */
-                case KC_J:
-                    if (record->event.pressed) {
-                        if (keyboard_report->mods & (MOD_BIT(KC_LCTL)))
-                        {
-                            ascii_code_ctrl = true;
-                            unregister_code(KC_LCTL);
-                            register_code(KC_ENT);
-                            return false;
-                        }
-                        else if (ascii_code_ctrl)
-                        {
-                            register_code(KC_ENT);
-                            return false;
-                        }
+                }
+                else {
+                    unregister_code(KC_ENT);
+                }
+                break;
 
+                /* Make all applications respect ASCII codes */
+            case KC_H:
+                if (record->event.pressed) {
+                    if (keyboard_report->mods & (MOD_BIT(KC_LCTL)))
+                    {
+                        ascii_code_ctrl = true;
+                        unregister_code(KC_LCTL);
+                        register_code(KC_BSPC);
+                        return false;
                     }
-                    else {
-                        unregister_code(KC_ENT);
+                    else if (ascii_code_ctrl)
+                    {
+                        register_code(KC_BSPC);
+                        return false;
                     }
-                    break;
 
-                    /* Make all applications respect ASCII codes */
-                case KC_H:
-                    if (record->event.pressed) {
-                        if (keyboard_report->mods & (MOD_BIT(KC_LCTL)))
-                        {
-                            ascii_code_ctrl = true;
-                            unregister_code(KC_LCTL);
-                            register_code(KC_BSPC);
-                            return false;
-                        }
-                        else if (ascii_code_ctrl)
-                        {
-                            register_code(KC_BSPC);
-                            return false;
-                        }
-
-                    }
-                    else {
-                        unregister_code(KC_BSPC);
-                    }
-                    break;
-            }
+                }
+                else {
+                    unregister_code(KC_BSPC);
+                }
+                break;
         }
     }
     return true;
-};
+}
