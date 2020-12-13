@@ -51,8 +51,8 @@ static uint8_t current_layer = 0;
 
 
 /* Common thumb cluster for the base layouts */
-#define __BASE_THUMBS__                         _______, _______,                                 KC_LBRC, KC_RBRC, \
-                                            LT(UTIL_SYM, KC_BSPC), LT(UTIL_NUM, KC_SPC),      LT(UTIL_NAV, KC_ENT), MO(UTIL_MACRO), \
+#define __BASE_THUMBS__                         _______, LCTL(KC_A),                                 KC_LBRC, KC_RBRC, \
+                                            LT(UTIL_SYM, KC_BSPC), LT(UTIL_NUM, KC_SPC),      LT(UTIL_NAV, KC_BSPC), LT(UTIL_MACRO, KC_ENT), \
                                                          MO(UTIL_MISC), _______,             _______, _______, \
                                                             _______, _______,                  _______, _______
 
