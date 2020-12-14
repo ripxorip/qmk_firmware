@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_LCTL, _____________QWERTY_L2_____________       ,                        _____________QWERTY_R2_____________        , KC_QUOT,
          KC_LSFT, _____________QWERTY_L3_____________       ,                        _____________QWERTY_R3_____________        , KC_BSLASH,
                            KC_LGUI, KC_GRV,                                                            KC_LBRC, KC_RBRC,
-                                                KC_SPC, KC_SPC,                     KC_ENT, KC_BSPC,
+                                                ALT_T(KC_SPC), KC_SPC,                     KC_ENT, KC_BSPC,
                                                     MO(UTIL_MISC), KC_LALT,         KC_LALT, KC_LGUI,
                                                     MO(UTIL_MISC), _______,      KC_E, KC_F
     ),
