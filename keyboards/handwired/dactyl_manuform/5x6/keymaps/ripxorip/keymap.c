@@ -52,7 +52,7 @@ static uint8_t current_layer = 0;
 
 /* Common thumb cluster for the base layouts */
 #define __BASE_THUMBS__                         _______, LCTL(KC_A),                                 KC_LBRC, KC_RBRC, \
-                                            LT(UTIL_SYM, KC_BSPC), LT(UTIL_NUM, KC_SPC),      LT(UTIL_NAV, KC_BSPC), LT(UTIL_MACRO, KC_ENT), \
+                                            LT(UTIL_SYM, KC_SPC), LT(UTIL_NUM, KC_SPC),      LT(UTIL_NAV, KC_ENT), LT(UTIL_MACRO, KC_BSPC), \
                                                          MO(UTIL_MISC), _______,             _______, _______, \
                                                             _______, _______,                  _______, _______
 
@@ -73,12 +73,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [BASE_NOOB] = RIPXORIP_5x6_WRAPPER(
-         KC_ESC, ____________NUMBERS_L______________        ,                        ____________NUMBERS_R______________        , KC_EQL,
-         LT(UTIL_NOOB, KC_TAB), _____________QWERTY_L1_____________,                 _____________QWERTY_R1_____________        , KC_MINS,
+         KC_ESC, ____________NUMBERS_L______________        ,                        ____________NUMBERS_R______________        , KC_MINS,
+         LT(UTIL_NOOB, KC_TAB), _____________QWERTY_L1_____________,                 _____________QWERTY_R1_____________        , KC_EQL,
          KC_LCTL, _____________QWERTY_L2_____________       ,                        _____________QWERTY_R2_____________        , KC_QUOT,
          KC_LSFT, _____________QWERTY_L3_____________       ,                        _____________QWERTY_R3_____________        , KC_BSLASH,
                            KC_LGUI, KC_GRV,                                                            KC_LBRC, KC_RBRC,
-                                                KC_LALT, KC_SPC,                     KC_BSPC, KC_ENT,
+                                                KC_SPC, KC_SPC,                     KC_ENT, KC_BSPC,
                                                     MO(UTIL_MISC), KC_LALT,         KC_LALT, KC_LGUI,
                                                     MO(UTIL_MISC), _______,      KC_E, KC_F
     ),
