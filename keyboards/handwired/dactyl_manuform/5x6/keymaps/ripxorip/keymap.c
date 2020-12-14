@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          LT(UTIL_NOOB, KC_TAB), _____________QWERTY_L1_____________,                 _____________QWERTY_R1_____________        , KC_MINS,
          KC_LCTL, _____________QWERTY_L2_____________       ,                        _____________QWERTY_R2_____________        , KC_QUOT,
          KC_LSFT, _____________QWERTY_L3_____________       ,                        _____________QWERTY_R3_____________        , KC_BSLASH,
-                           KC_LSFT, KC_GRV,                                                            KC_LBRC, KC_RBRC,
+                           KC_LGUI, KC_GRV,                                                            KC_LBRC, KC_RBRC,
                                                 KC_LALT, KC_SPC,                     KC_BSPC, KC_ENT,
                                                     MO(UTIL_MISC), KC_LALT,         KC_LALT, KC_LGUI,
                                                     MO(UTIL_MISC), _______,      KC_E, KC_F
