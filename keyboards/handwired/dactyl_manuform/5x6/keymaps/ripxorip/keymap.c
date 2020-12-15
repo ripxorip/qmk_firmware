@@ -31,7 +31,8 @@ const uint8_t HIGHEST_BASE = BASE_NOOB+1;
 
 enum ripxorip_keycodes
 {
-    NEXT_BASE = SAFE_RANGE
+    NEXT_BASE = SAFE_RANGE,
+    STRUCT_REF
 };
 
 static uint8_t current_layer = 0;
@@ -84,14 +85,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_LCTL, HML(_____________QWERTY_L2_____________)       ,                   HMR(_____________QWERTY_R2_____________)        , KC_QUOT,
          KC_LSFT, _____________QWERTY_L3_____________       ,                        _____________QWERTY_R3_____________        , KC_BSLASH,
                            KC_LGUI, KC_GRV,                                                            KC_LBRC, KC_RBRC,
-                                                LT(UTIL_NOOB, KC_SPC), LT(UTIL_NOOB, KC_SPC),                     KC_BSPC, KC_ENT,
-                                                    MO(UTIL_MISC), KC_LALT,         KC_LALT, KC_LGUI,
-                                                    MO(UTIL_MISC), _______,      KC_E, KC_F
+                                                LT(UTIL_NOOB, KC_SPC), LT(UTIL_NOOB, KC_SPC),        KC_BSPC, LT(UTIL_SYM, KC_ENT),
+                                                    MO(UTIL_MISC), KC_LALT,                             KC_LALT, KC_LGUI,
+                                                    MO(UTIL_MISC), _______,                             KC_E, KC_F
     ),
 
     /* ----END BASE---- */
 
-    /* Shift layers shall be done inspired by the planch layouts.. */
+    /* Are these really needed? */
 
     [SHIFT_LEFT_RAISE] = RIPXORIP_5x6_WRAPPER(
          _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
@@ -148,9 +149,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [UTIL_SYM] = RIPXORIP_5x6_WRAPPER(
          _______, _______, _______, _______, _______, _______,                       _______, _______, _______, _______, _______, _______,
-         _______, LSFT(KC_1), LSFT(KC_2), LSFT(KC_3), LSFT(KC_4), LSFT(KC_5),        LSFT(KC_6), LSFT(KC_7), LSFT(KC_8), LSFT(KC_9), LSFT(KC_0), _______,
-         _______, KC_TAB, KC_LSFT, LSFT(KC_LBRC), LSFT(KC_RBRC), _______,            _______, KC_LBRC, KC_RBRC, LSFT(KC_MINS), KC_QUOT, _______,
-         _______, KC_ESC, KC_ESC, _______, _______, _______,                        _______, KC_MINS, KC_EQL, KC_GRV, KC_BSLASH, _______,
+         _______, LSFT(KC_1), LSFT(KC_2), LSFT(KC_3), LSFT(KC_4), LSFT(KC_5),       KC_GRV, LSFT(KC_LBRC), LSFT(KC_RBRC), LSFT(KC_8), UC(L'å'), _______,
+         _______, KC_EQL, KC_MINS, LSFT(KC_EQL), LSFT(KC_MINS), LSFT(KC_GRV),       KC_ESC, LSFT(KC_9), LSFT(KC_0), LSFT(KC_QUOT), KC_QUOT, _______,
+         _______, KC_TAB, UC(L'ö'), KC_LBRC, KC_RBRC, LSFT(KC_BSLASH),              LSFT(KC_6), LSFT(KC_7), UC(L'ä'), STRUCT_REF, KC_BSLASH, _______,
                            _______, _______,                                                            _______, _______,
                                                 _______, _______,                 _______, _______,
                                                     _______, _______,         _______, _______,
@@ -250,6 +251,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 current_layer = (current_layer + 1) % HIGHEST_BASE;
                 set_layer();
+            }
+            else
+            {
+                /* DO NOTHING */
+            }
+            break;
+        case STRUCT_REF:
+            if (record->event.pressed) {
+                SEND_STRING("->");
             }
             else
             {
