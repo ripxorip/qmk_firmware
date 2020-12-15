@@ -147,6 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     _______, _______,         _______, _______
     ),
 
+    /* This layer is almost final take a look at the cheat notes */
     [UTIL_SYM] = RIPXORIP_5x6_WRAPPER(
          _______, _______, _______, _______, _______, _______,                       _______, _______, _______, _______, _______, _______,
          _______, LSFT(KC_1), LSFT(KC_2), LSFT(KC_3), LSFT(KC_4), LSFT(KC_5),       KC_GRV, LSFT(KC_LBRC), LSFT(KC_RBRC), LSFT(KC_8), UC(L'å'), _______,
