@@ -16,8 +16,11 @@ enum layers
     SHIFT_LEFT_SINK,
     SHIFT_RIGHT_SINK,
 
+    /* These are the only two layer that I shall need */
+    UPPER,
+    LOWER,
+
     /* Util layers (legacy) */
-    UTIL_SYM,
     UTIL_NUM,
     /* Layer shifting, flashing, LEDS, etc.. */
     UTIL_MISC,
@@ -58,23 +61,23 @@ static uint8_t current_layer = 0;
 
 
 /* Common thumb cluster for the base layouts */
-#define __BASE_THUMBS__                         KC_TAB, LCTL(KC_A),                                 KC_LBRC, KC_RBRC, \
-                        LT(SHIFT_RIGHT_RAISE, KC_SPC), LT(SHIFT_RIGHT_SINK, KC_SPC),      LT(SHIFT_LEFT_SINK, KC_BSPC), LT(SHIFT_LEFT_RAISE, KC_ENT), \
-                                                         MO(UTIL_MISC), _______,             _______, _______, \
+#define __BASE_THUMBS__                         _______, _______,                                 _______, _______, \
+                                            LT(UPPER, KC_SPC), KC_SPC,                    LT(LOWER, KC_BSPC), LT(UPPER, KC_ENT), \
+                                                         MO(UTIL_MISC), KC_LALT,             KC_LSFT, KC_LGUI, \
                                                             _______, _______,                  _______, _______
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE_CM_DHm] = RIPXORIP_5x6_WRAPPER(
          _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
          _______, _____________CM_DHm_L1_____________        ,                        _____________CM_DHm_R1_____________        , _______,
-         _______, HML(_____________CM_DHm_L2_____________   ),                        HMR(_____________CM_DHm_R2_____________   ), _______,
+         _______, _____________CM_DHm_L2_____________        ,                        _____________CM_DHm_R2_____________        , _______,
          _______, _____________CM_DHm_L3_____________        ,                        _____________CM_DHm_R3_____________        , _______,
                                                                   __BASE_THUMBS__
     ),
     [BASE_QWERTY] = RIPXORIP_5x6_WRAPPER(
-         KC_ESC, ____________NUMBERS_L______________         ,                        ____________NUMBERS_R______________       ,  KC_MINS,
+         KC_ESC, ____________NUMBERS_L______________         ,                        ____________NUMBERS_R______________        ,  KC_MINS,
          KC_TAB, _____________QWERTY_L1_____________         ,                        _____________QWERTY_R1_____________        , KC_EQL,
-         KC_LCTL, HML(_____________QWERTY_L2_____________)   ,                        HMR(_____________QWERTY_R2_____________   ), KC_QUOT,
+         KC_LCTL, _____________QWERTY_L2_____________        ,                        _____________QWERTY_R2_____________        , KC_QUOT,
          KC_LSFT, _____________QWERTY_L3_____________        ,                        _____________QWERTY_R3_____________        , KC_BSLASH,
                                                                   __BASE_THUMBS__
     ),
@@ -82,10 +85,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE_NOOB] = RIPXORIP_5x6_WRAPPER(
          KC_ESC, ____________NUMBERS_L______________        ,                        ____________NUMBERS_R______________        , KC_MINS,
          LT(UTIL_NOOB, KC_TAB), _____________QWERTY_L1_____________,                 _____________QWERTY_R1_____________        , KC_EQL,
-         KC_LCTL, HML(_____________QWERTY_L2_____________)       ,                   HMR(_____________QWERTY_R2_____________)        , KC_QUOT,
+         KC_LCTL, _____________QWERTY_L2_____________       ,                        _____________QWERTY_R2_____________        , KC_QUOT,
          KC_LSFT, _____________QWERTY_L3_____________       ,                        _____________QWERTY_R3_____________        , KC_BSLASH,
                            UC(L'å'), UC(L'ä'),                                                            UC(L'ö'), KC_RBRC,
-                                                LT(UTIL_NOOB, KC_SPC), LT(UTIL_NOOB, KC_SPC),        KC_BSPC, LT(UTIL_SYM, KC_ENT),
+                                                LT(UTIL_NOOB, KC_SPC), LT(UTIL_NOOB, KC_SPC),        LT(UTIL_NOOB, KC_BSPC), LT(UPPER, KC_ENT),
                                                     MO(UTIL_MISC), KC_LALT,                             KC_LALT, KC_LGUI,
                                                     MO(UTIL_MISC), _______,                             KC_E, KC_F
     ),
@@ -134,8 +137,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     _______, _______,         _______, _______,
                                                     _______, _______,         _______, _______
     ),
+    /* This layer is almost final take a look at the cheat notes */
+    [UPPER] = RIPXORIP_5x6_WRAPPER(
+         _______, _______, _______, _______, _______, _______,                       _______, _______, _______, _______, _______, _______,
+         _______, LSFT(KC_1), LSFT(KC_2), LSFT(KC_3), LSFT(KC_4), LSFT(KC_5),       KC_GRV, LSFT(KC_LBRC), LSFT(KC_RBRC), LSFT(KC_8), UC(L'å'), UC(L'å'),
+         _______, KC_EQL, KC_MINS, LSFT(KC_EQL), LSFT(KC_MINS), LSFT(KC_GRV),       KC_ESC, LSFT(KC_9), LSFT(KC_0), LSFT(KC_QUOT), KC_QUOT, UC(L'ä'),
+         _______, KC_TAB, UC(L'ö'), KC_LBRC, KC_RBRC, LSFT(KC_BSLASH),              LSFT(KC_6), LSFT(KC_7), UC(L'ä'), STRUCT_REF, KC_BSLASH, UC(L'ö'),
+                           _______, _______,                                                            _______, _______,
+                                                _______, _______,                 _______, NEXT_BASE,
+                                                    _______, _______,         _______, _______,
+                                                    _______, _______,         _______, _______
+    ),
+    /* TODO: Make a thoughtful lower layer and use it */
+    [LOWER] = RIPXORIP_5x6_WRAPPER(
+         _______, __________________F_L______________        ,                        __________________F_R______________,               KC_GRV,
+         _______, _______, _______, _______, _______, _______,                        LCTL(KC_BSPC), _______, _______, _______, _______, UC(L'å'),
+         _______, _______, _______, LCTL(KC_A), _______, _______,                        KC_LEFT  , KC_DOWN  , KC_UP  , KC_RIGHT  ,UC(L'ö'),UC(L'ä'),
+         _______, _______, _______, _______, _______, _______,                        _______, LCTL(KC_A), LCTL(KC_A), _______, _______, _______,
+                           _______, _______,                                                            _______, _______,
+                                                _______, _______,                 _______, NEXT_BASE,
+                                                    _______, _______,           _______, _______,
+                                                    _______, _______,           _______, _______
+    ),
     /* ---- END SHIFT ---- */
-
     [UTIL_NUM] = RIPXORIP_5x6_WRAPPER(
          _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
          _______, _______, _______, _______, _______, _______,                        _______, KC_7,    KC_8,    KC_9,    _______, _______,
@@ -147,18 +171,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     _______, _______,         _______, _______
     ),
 
-    /* This layer is almost final take a look at the cheat notes */
-    [UTIL_SYM] = RIPXORIP_5x6_WRAPPER(
-         _______, _______, _______, _______, _______, _______,                       _______, _______, _______, _______, _______, _______,
-         _______, LSFT(KC_1), LSFT(KC_2), LSFT(KC_3), LSFT(KC_4), LSFT(KC_5),       KC_GRV, LSFT(KC_LBRC), LSFT(KC_RBRC), LSFT(KC_8), UC(L'å'), _______,
-         _______, KC_EQL, KC_MINS, LSFT(KC_EQL), LSFT(KC_MINS), LSFT(KC_GRV),       KC_ESC, LSFT(KC_9), LSFT(KC_0), LSFT(KC_QUOT), KC_QUOT, _______,
-         _______, KC_TAB, UC(L'ö'), KC_LBRC, KC_RBRC, LSFT(KC_BSLASH),              LSFT(KC_6), LSFT(KC_7), UC(L'ä'), STRUCT_REF, KC_BSLASH, _______,
-                           _______, _______,                                                            _______, _______,
-                                                _______, _______,                 _______, _______,
-                                                    _______, _______,         _______, _______,
-                                                    _______, _______,         _______, _______
-
-    ),
     [UTIL_FN] = RIPXORIP_5x6_WRAPPER(
          _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
          _______, __________________F_L______________        ,                        __________________F_R______________        , _______,
@@ -269,6 +281,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
     }
     /* Noob layers stuff... */
+#if 0
     if (current_layer == BASE_NOOB)
     {
         static bool ascii_code_ctrl = false;
@@ -327,5 +340,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 break;
         }
     }
+#endif
+
     return true;
 }
