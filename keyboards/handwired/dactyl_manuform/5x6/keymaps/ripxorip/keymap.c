@@ -163,7 +163,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [UPPER] = RIPXORIP_5x6_WRAPPER(
          _______, _______, _______, _______, _______, _______,                       _______, _______, _______, _______, _______, _______,
          _______, LSFT(KC_1), LSFT(KC_2), LSFT(KC_3), LSFT(KC_4), LSFT(KC_5),       KC_GRV, LSFT(KC_LBRC), LSFT(KC_RBRC), LSFT(KC_8), UC(L'å'), _______,
-         _______, KC_EQL, KC_MINS, LSFT(KC_EQL), LSFT(KC_MINS), LSFT(KC_GRV),       KC_ESC, LSFT(KC_9), LSFT(KC_0), LSFT(KC_QUOT), KC_QUOT, _______,
+         _______, KC_EQL, KC_MINS, LSFT(KC_EQL), LSFT(KC_MINS), LSFT(KC_GRV),       KC_QUOT, LSFT(KC_9), LSFT(KC_0), LSFT(KC_QUOT), KC_SCLN, _______,
          _______, KC_TAB, UC(L'ö'), KC_LBRC, KC_RBRC, LSFT(KC_BSLASH),              LSFT(KC_6), LSFT(KC_7), UC(L'ä'), STRUCT_REF, KC_BSLASH, _______,
                            _______, _______,                                                            _______, _______,
                                                 _______, _______,                 _______, NEXT_BASE,
