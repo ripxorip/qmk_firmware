@@ -3,6 +3,11 @@
 #include QMK_KEYBOARD_H
 #include "ripxorip.h"
 
+/* FIXME add layers for tmux vim movement (see below ctrl arrows)
+ * and add Fn layer using the same logic as for the numpad. Use
+ * 'home mod' for keys above home row...
+ */
+
 enum layers
 {
     /* Base layers */
@@ -10,15 +15,12 @@ enum layers
     BASE_CM_DHm,
     BASE_NOOB,
 
-    /* Shift layers */
-    SHIFT_LEFT_RAISE,
-    SHIFT_RIGHT_RAISE,
-    SHIFT_LEFT_SINK,
-    SHIFT_RIGHT_SINK,
-
-    /* Util layers (legacy) */
+        /* Shift layer */
     UPPER,
     LOWER,
+    FN_LAYER,
+    TMUX_NAV,
+
     UTIL_NUM,
     /* Layer shifting, flashing, LEDS, etc.. */
     UTIL_MISC,
@@ -33,6 +35,21 @@ const uint8_t HIGHEST_BASE = BASE_NOOB+1;
 enum ripxorip_keycodes
 {
     NEXT_BASE = SAFE_RANGE,
+    TMUX_0,
+    TMUX_1,
+    TMUX_2,
+    TMUX_3,
+    TMUX_4,
+    TMUX_5,
+    TMUX_6,
+    TMUX_7,
+    TMUX_8,
+    TMUX_9,
+    VIM_SPLIT,
+    VIM_VSPLIT,
+    TMUX_CREATE,
+    TMUX_SPLIT,
+    TMUX_VSPLIT,
     STRUCT_REF
 };
 
@@ -67,9 +84,9 @@ static uint8_t current_layer = 0;
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE_CM_DHm] = RIPXORIP_5x6_WRAPPER(
          _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
-         _______, _____________CM_DHm_L1_____________        ,                        _____________CM_DHm_R1_____________        , _______,
-         _______, HML(_____________CM_DHm_L2_____________   ),                        HMR(_____________CM_DHm_R2_____________   ), _______,
-         _______, _____________CM_DHm_L3_____________        ,                        _____________CM_DHm_R3_____________        , _______,
+         _______, KC_Q   , KC_W   , KC_F   , KC_P   , KC_B   ,                        KC_J   , KC_L   , KC_U   , KC_Y   , KC_SCLN , _______,
+         _______, HML(KC_A   , KC_R   , KC_S   , KC_T   , KC_G),                      HMR(KC_M   , KC_N   , KC_E   , KC_I   , KC_O), _______,
+         _______, KC_Z, KC_X, LT(FN_LAYER, KC_C), LT(TMUX_NAV, KC_D), KC_V,           KC_K   , KC_H   , KC_COMM, KC_DOT , KC_SLSH, _______,
                                                                   __BASE_THUMBS__
     ),
     [BASE_QWERTY] = RIPXORIP_5x6_WRAPPER(
@@ -95,52 +112,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Are these really needed? */
 
-    [SHIFT_LEFT_RAISE] = RIPXORIP_5x6_WRAPPER(
+    [FN_LAYER] = RIPXORIP_5x6_WRAPPER(
          _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
-         _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
-         _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
-         _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
+         _______, _______, _______, _______, _______, _______,                        _______, KC_F7, KC_F8, KC_F9, KC_F10, _______,
+         _______, _______, _______, _______, _______, _______,                        _______, KC_F4, KC_F5, KC_F6, KC_F11, _______,
+         _______, _______, _______, _______, _______, _______,                        _______, KC_F1, KC_F2, KC_F3, KC_F12, _______,
                            _______, _______,                                                            _______, _______,
                                                 _______, _______,                 _______, _______,
                                                     _______, _______,         _______, _______,
                                                     _______, _______,         _______, _______
     ),
-    [SHIFT_LEFT_SINK] = RIPXORIP_5x6_WRAPPER(
+    [TMUX_NAV] = RIPXORIP_5x6_WRAPPER(
          _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
-         _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
-         _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
-         _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
-                           _______, _______,                                                            _______, _______,
-                                                _______, _______,                 _______, _______,
+         _______, _______, _______, _______, _______, _______,                        TMUX_8, TMUX_0, TMUX_1, TMUX_2, TMUX_3, _______,
+         _______, _______, _______, TMUX_CREATE, _______, _______,                    LCTL(KC_LEFT), LCTL(KC_DOWN), LCTL(KC_UP), LCTL(KC_RIGHT), _______, _______,
+         _______, _______, _______, _______, _______, _______,                        TMUX_9, TMUX_4, TMUX_5, TMUX_6, TMUX_7, _______,
+                           _______, _______,                                                            VIM_SPLIT, VIM_VSPLIT,
+                                                _______, _______,                 TMUX_SPLIT, TMUX_VSPLIT,
                                                     _______, _______,         _______, _______,
                                                     _______, _______,         _______, _______
     ),
-    [SHIFT_RIGHT_RAISE] = RIPXORIP_5x6_WRAPPER(
-         _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
-         _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
-         _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
-         _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
-                           _______, _______,                                                            _______, _______,
-                                                _______, _______,                 _______, NEXT_BASE,
-                                                    _______, _______,         _______, _______,
-                                                    _______, _______,         _______, _______
-    ),
-    [SHIFT_RIGHT_SINK] = RIPXORIP_5x6_WRAPPER(
-         _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
-         _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
-         _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
-         _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
-                           _______, _______,                                                            _______, _______,
-                                                _______, _______,                 _______, _______,
-                                                    _______, _______,         _______, _______,
-                                                    _______, _______,         _______, _______
-    ),
-    /* ---- END SHIFT ---- */
 
     [UTIL_NUM] = RIPXORIP_5x6_WRAPPER(
          _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
          _______, _______, _______, _______, _______, _______,                        _______, KC_7,    KC_8,    KC_9,    _______, _______,
-         _______, _______, KC_DOWN, KC_UP, KC_UP, _______,                        _______, KC_4,    KC_5,    KC_6,    KC_0,    _______,
+         _______, _______, KC_DOWN, KC_UP, KC_UP,     _______,                        _______, KC_4,    KC_5,    KC_6,    KC_0,    _______,
          _______, _______, _______, _______, _______, _______,                        _______, KC_1,    KC_2,    KC_3,    _______, _______,
                            _______, _______,                                                            KC_COMM, KC_DOT,
                                                 _______, _______,                 _______, KC_0,
@@ -151,9 +147,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* This layer is intended for navigation both keyboard and mouse */
     [LOWER] = RIPXORIP_5x6_WRAPPER(
          _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
-         _______, _______, KC_MS_WH_LEFT, KC_MS_U, KC_MS_WH_RIGHT, _______,           _______, KC_HOME, KC_UP, KC_END, _______, _______,
+         _______, _______, KC_MS_WH_LEFT, KC_MS_U, KC_MS_WH_RIGHT, _______,           LCTL(KC_LEFT), LCTL(KC_DOWN), LCTL(KC_UP), LCTL(KC_RIGHT), _______, _______,
          _______, KC_BTN1, KC_MS_L, KC_MS_D, KC_MS_R, _______,                        KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, _______, _______,
-         _______, _______, KC_WH_D, KC_BTN2, KC_WH_U, _______,                        _______, KC_PGDOWN, KC_ESC, KC_PGUP, _______, _______,
+         _______, _______, KC_WH_D, KC_BTN2, KC_WH_U, _______,                        KC_HOME, KC_PGDOWN, KC_ESC, KC_PGUP, KC_END, _______,
                            _______, _______,                                                            _______, _______,
                                                 _______, _______,                 _______, _______,
                                                     _______, _______,         _______, _______,
@@ -228,13 +224,13 @@ static void set_layer(void)
 {
     if (BASE_CM_DHm == current_layer)
     {
-        rgblight_sethsv_noeeprom(201, 200, 127);
+        rgblight_sethsv_noeeprom(148, 170, 127);
         rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
         layer_move(BASE_CM_DHm);
     }
     else if (BASE_QWERTY == current_layer)
     {
-        rgblight_sethsv_noeeprom(148, 170, 127);
+        rgblight_sethsv_noeeprom(201, 200, 127);
         rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
         layer_move(BASE_QWERTY);
     }
@@ -260,6 +256,151 @@ void keyboard_post_init_user(void)
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+
+        case TMUX_0:
+            if (record->event.pressed) {
+                // when keycode P_PARENT is pressed
+                SEND_STRING(SS_LCTRL("a")"0");
+            } else {
+                // when keycode P_PARENT is released
+            }
+            break;
+
+
+        case TMUX_1:
+            if (record->event.pressed) {
+                // when keycode P_PARENT is pressed
+                SEND_STRING(SS_LCTRL("a")"1");
+            } else {
+                // when keycode P_PARENT is released
+            }
+            break;
+
+
+        case TMUX_2:
+            if (record->event.pressed) {
+                // when keycode P_PARENT is pressed
+                SEND_STRING(SS_LCTRL("a")"2");
+            } else {
+                // when keycode P_PARENT is released
+            }
+            break;
+
+
+        case TMUX_3:
+            if (record->event.pressed) {
+                // when keycode P_PARENT is pressed
+                SEND_STRING(SS_LCTRL("a")"3");
+            } else {
+                // when keycode P_PARENT is released
+            }
+            break;
+
+
+        case TMUX_4:
+            if (record->event.pressed) {
+                // when keycode P_PARENT is pressed
+                SEND_STRING(SS_LCTRL("a")"4");
+            } else {
+                // when keycode P_PARENT is released
+            }
+            break;
+
+
+        case TMUX_5:
+            if (record->event.pressed) {
+                // when keycode P_PARENT is pressed
+                SEND_STRING(SS_LCTRL("a")"5");
+            } else {
+                // when keycode P_PARENT is released
+            }
+            break;
+
+
+        case TMUX_6:
+            if (record->event.pressed) {
+                // when keycode P_PARENT is pressed
+                SEND_STRING(SS_LCTRL("a")"6");
+            } else {
+                // when keycode P_PARENT is released
+            }
+            break;
+
+
+        case TMUX_7:
+            if (record->event.pressed) {
+                // when keycode P_PARENT is pressed
+                SEND_STRING(SS_LCTRL("a")"7");
+            } else {
+                // when keycode P_PARENT is released
+            }
+            break;
+
+
+        case TMUX_8:
+            if (record->event.pressed) {
+                // when keycode P_PARENT is pressed
+                SEND_STRING(SS_LCTRL("a")"8");
+            } else {
+                // when keycode P_PARENT is released
+            }
+            break;
+
+        case TMUX_9:
+            if (record->event.pressed) {
+                // when keycode P_PARENT is pressed
+                SEND_STRING(SS_LCTRL("a")"9");
+            } else {
+                // when keycode P_PARENT is released
+            }
+            break;
+
+        case TMUX_CREATE:
+            if (record->event.pressed) {
+                // when keycode P_PARENT is pressed
+                SEND_STRING(SS_LCTRL("a")"c");
+            } else {
+                // when keycode P_PARENT is released
+            }
+            break;
+
+        case TMUX_SPLIT:
+            if (record->event.pressed) {
+                // when keycode P_PARENT is pressed
+                SEND_STRING(SS_LCTRL("a")"s");
+            } else {
+                // when keycode P_PARENT is released
+            }
+            break;
+
+        case TMUX_VSPLIT:
+            if (record->event.pressed) {
+                // when keycode P_PARENT is pressed
+                SEND_STRING(SS_LCTRL("a")"v");
+            } else {
+                // when keycode P_PARENT is released
+            }
+            break;
+
+        case VIM_VSPLIT:
+            if (record->event.pressed) {
+                // when keycode P_PARENT is pressed
+                SEND_STRING(":vspl"SS_TAP(X_ENTER)"");
+            } else {
+                // when keycode P_PARENT is released
+            }
+            break;
+
+        case VIM_SPLIT:
+            if (record->event.pressed) {
+                // when keycode P_PARENT is pressed
+                SEND_STRING(":spl"SS_TAP(X_ENTER)"");
+            } else {
+                // when keycode P_PARENT is released
+            }
+            break;
+
+
         case NEXT_BASE:
             if (record->event.pressed) {
                 current_layer = (current_layer + 1) % HIGHEST_BASE;
