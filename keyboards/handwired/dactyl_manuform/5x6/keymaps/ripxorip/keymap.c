@@ -20,6 +20,7 @@ enum layers
     LOWER,
     FN_LAYER,
     TMUX_NAV,
+    KVM_NAV,
 
     UTIL_NUM,
     /* Layer shifting, flashing, LEDS, etc.. */
@@ -50,6 +51,10 @@ enum ripxorip_keycodes
     TMUX_CREATE,
     TMUX_SPLIT,
     TMUX_VSPLIT,
+    KVM_SET_WIN_MAIN,
+    KVM_SET_WORK,
+    KVM_SET_LINUX,
+    KVM_SET_MAC,
     STRUCT_REF
 };
 
@@ -76,7 +81,7 @@ static uint8_t current_layer = 0;
 
 
 /* Common thumb cluster for the base layouts */
-#define __BASE_THUMBS__                        KC_LALT, KC_TAB,                                 KC_A, KC_LCTL, \
+#define __BASE_THUMBS__                        KC_LALT, KC_TAB,                                 KC_A, MO(KVM_NAV), \
                         LT(UPPER, KC_ESC), LT(LOWER, KC_SPC),      LT(LOWER, KC_BSPC), LT(UPPER, KC_ENT), \
                                                          MO(UTIL_MISC), _______,             _______, _______, \
                                                             _______, _______,                  _______, _______
@@ -215,6 +220,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                            _______, _______,                                                            _______, _______,
                                                 _______, _______,                 _______, _______,
                                                     _______, RESET,            NEXT_BASE, _______,
+                                                    _______, _______,           _______, _______
+    ),
+    [KVM_NAV] = RIPXORIP_5x6_WRAPPER(
+         _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
+         _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
+         _______, KVM_SET_WIN_MAIN, KVM_SET_WORK, KVM_SET_LINUX, KVM_SET_MAC, _______,                        _______, _______, _______, _______, _______, _______,
+         _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
+                           _______, _______,                                                            _______, _______,
+                                                _______, _______,                 _______, _______,
+                                                    _______, _______,            _______, _______,
                                                     _______, _______,           _______, _______
     )
 };
@@ -395,6 +410,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 // when keycode P_PARENT is pressed
                 SEND_STRING(":spl"SS_TAP(X_ENTER)"");
+            } else {
+                // when keycode P_PARENT is released
+            }
+            break;
+
+
+        case KVM_SET_WIN_MAIN:
+            if (record->event.pressed) {
+                // when keycode P_PARENT is pressed
+                SEND_STRING(SS_LCTRL(SS_LALT("1")));
+                SEND_STRING(SS_LCTRL(SS_LALT("u")));
+            } else {
+                // when keycode P_PARENT is released
+            }
+            break;
+
+        case KVM_SET_WORK:
+            if (record->event.pressed) {
+                // when keycode P_PARENT is pressed
+                SEND_STRING(SS_LCTRL(SS_LALT("1")));
+                SEND_STRING(SS_LCTRL(SS_LALT("l")));
+                SEND_STRING(SS_LCTRL(SS_LALT("2")));
             } else {
                 // when keycode P_PARENT is released
             }
