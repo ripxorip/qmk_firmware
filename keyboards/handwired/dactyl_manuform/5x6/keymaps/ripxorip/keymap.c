@@ -225,7 +225,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [KVM_NAV] = RIPXORIP_5x6_WRAPPER(
          _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
          _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
-         _______, KVM_SET_WIN_MAIN, KVM_SET_WORK, KVM_SET_LINUX, KVM_SET_MAC, _______,                        _______, _______, _______, _______, _______, _______,
+         _______, KVM_SET_WIN_MAIN, KVM_SET_WORK, KVM_SET_MAC, KVM_SET_LINUX, _______,                        _______, _______, _______, _______, _______, _______,
          _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
                            _______, _______,                                                            _______, _______,
                                                 _______, _______,                 _______, _______,
@@ -437,6 +437,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
 
+        case KVM_SET_MAC:
+            if (record->event.pressed) {
+                // when keycode P_PARENT is pressed
+                SEND_STRING(SS_LCTRL(SS_LALT("1")));
+                SEND_STRING(SS_LCTRL(SS_LALT("y")));
+                SEND_STRING(SS_LCTRL(SS_LALT("3")));
+            } else {
+                // when keycode P_PARENT is released
+            }
+            break;
 
         case NEXT_BASE:
             if (record->event.pressed) {
