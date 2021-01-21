@@ -115,8 +115,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* ----END BASE---- */
 
-    /* Are these really needed? */
-
     [FN_LAYER] = RIPXORIP_5x6_WRAPPER(
          _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
          _______, _______, _______, _______, _______, _______,                        _______, KC_F7, KC_F8, KC_F9, KC_F10, _______,
@@ -133,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          _______, _______, _______, TMUX_CREATE, _______, _______,                    LCTL(KC_LEFT), LCTL(KC_DOWN), LCTL(KC_UP), LCTL(KC_RIGHT), _______, _______,
          _______, _______, _______, _______, _______, _______,                        TMUX_9, TMUX_4, TMUX_5, TMUX_6, TMUX_7, _______,
                            _______, _______,                                                            VIM_SPLIT, VIM_VSPLIT,
-                                                _______, _______,                 TMUX_SPLIT, TMUX_VSPLIT,
+                                                VIM_VSPLIT, VIM_SPLIT,                 TMUX_SPLIT, TMUX_VSPLIT,
                                                     _______, _______,         _______, _______,
                                                     _______, _______,         _______, _______
     ),
@@ -153,10 +151,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [LOWER] = RIPXORIP_5x6_WRAPPER(
          _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
          _______, _______, KC_MS_WH_LEFT, KC_MS_U, KC_MS_WH_RIGHT, _______,           LCTL(KC_LEFT), LCTL(KC_DOWN), LCTL(KC_UP), LCTL(KC_RIGHT), _______, _______,
-         _______, KC_BTN1, KC_MS_L, KC_MS_D, KC_MS_R, _______,                        KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, _______, _______,
+         _______, KC_BTN1, KC_MS_L, KC_MS_D, KC_MS_R, _______,                        KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_LSFT, _______,
          _______, _______, KC_WH_D, KC_BTN2, KC_WH_U, _______,                        KC_HOME, KC_PGDOWN, KC_ESC, KC_PGUP, KC_END, _______,
                            _______, _______,                                                            _______, _______,
-                                                _______, _______,                 _______, _______,
+                                                _______, _______,                 _______, KC_TAB,
                                                     _______, _______,         _______, _______,
                                                     _______, _______,         _______, _______
     ),
