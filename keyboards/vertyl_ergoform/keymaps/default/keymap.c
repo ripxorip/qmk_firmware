@@ -38,6 +38,8 @@ enum ripxorip_keycodes
     KVM_SET_WORK,
     KVM_SET_LINUX,
     KVM_SET_MAC,
+    FUSION_360_ORBIT,
+    FUSION_360_PAN,
     STRUCT_REF
 };
 
@@ -48,6 +50,7 @@ enum layer_names {
     LOWER,
     FN_LAYER,
     TMUX_NAV,
+    FUSION_360,
     UTIL_NUM
 };
 
@@ -66,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_Q   , KC_W   , KC_F   , KC_P   , KC_B   ,                                                      KC_J   , KC_L   , KC_U   , KC_Y   , KC_SCLN ,
         CTL_T(KC_A)   , SFT_T(KC_R)   , GUI_T(KC_S)   , LT(UTIL_NUM, KC_T)   , KC_G,                      ALT_T(KC_M)   , ALT_T(KC_N)   , GUI_T(KC_E)   , SFT_T(KC_I)   , CTL_T(KC_O),
         KC_Z, KC_X, LT(FN_LAYER, KC_C), LT(TMUX_NAV, KC_D), KC_V,                                         KC_K   , KC_H   , KC_COMM, KC_DOT , KC_SLSH,
-                        _______, _______,                                                                                        _______, _______,
+                        FUSION_360_ORBIT, FUSION_360_PAN,                                                                                        _______, _______,
                                                 LT(UPPER, KC_ESC), LT(LOWER, KC_SPC),                  LT(LOWER, KC_BSPC), LT(UPPER, KC_ENT)
     ),
 
@@ -97,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [FN_LAYER] = LAYOUT(
          RESET, _______, _______, _______, _______,                          _______, KC_F7, KC_F8, KC_F9, KC_F10,
          _______, _______, _______, _______, _______,                        _______, KC_F4, KC_F5, KC_F6, KC_F11,
-         _______, _______, _______, _______, _______,                        _______, KC_F1, KC_F2, KC_F3, KC_F12,
+         TO(FUSION_360), _______, _______, _______, _______,                        _______, KC_F1, KC_F2, KC_F3, KC_F12,
                            _______, _______,                                                            _______, _______,
                                                 _______, _______,                 _______, _______
     ),
@@ -106,7 +109,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          _______, _______, TMUX_CREATE, _______, _______,                    LCTL(KC_LEFT), LCTL(KC_DOWN), LCTL(KC_UP), LCTL(KC_RIGHT), _______,
          _______, _______, _______, _______, _______,                        TMUX_9, TMUX_4, TMUX_5, TMUX_6, TMUX_7,
                            _______, _______,                                         _______, _______,
-                                                VIM_VSPLIT, VIM_SPLIT,                 TMUX_SPLIT, TMUX_VSPLIT
+                                 VIM_VSPLIT, VIM_SPLIT,                 TMUX_SPLIT, TMUX_VSPLIT
+    ),
+    [FUSION_360] = LAYOUT(
+      KC_Q, _______, _______, KC_P, _______,                               _______, _______, _______, _______, _______,
+      KC_BSPC, _______, FUSION_360_PAN, FUSION_360_ORBIT, KC_L,                               _______, _______, _______, _______, _______,
+      _______, _______, KC_C, KC_D, KC_I,                               _______, _______, _______, _______, _______,
+                            _______, _______,                                                     _______, _______,
+                                             KC_ESC, KC_ENT,         _______, TO(BASE)
     ),
 };
 
@@ -296,6 +306,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             else
             {
                 /* DO NOTHING */
+            }
+            break;
+        case FUSION_360_ORBIT:
+            if (record->event.pressed) {
+                register_code(KC_LSFT);
+                SEND_STRING(SS_DELAY(200));
+                register_code(KC_BTN3);
+            }
+            else
+            {
+                unregister_code(KC_LSFT);
+                unregister_code(KC_BTN3);
+            }
+            break;
+        case FUSION_360_PAN:
+            if (record->event.pressed) {
+                register_code(KC_BTN3);
+            }
+            else
+            {
+                unregister_code(KC_BTN3);
             }
             break;
     }
