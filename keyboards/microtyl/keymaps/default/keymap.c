@@ -81,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [UPPER] = LAYOUT(
          LSFT(KC_1), LSFT(KC_2), LSFT(KC_3), LSFT(KC_4), LSFT(KC_5),       KC_GRV, LSFT(KC_LBRC), LSFT(KC_RBRC), LSFT(KC_8), UC(L'å'),
-         KC_EQL, KC_MINS, LSFT(KC_EQL), LSFT(KC_MINS), LSFT(KC_GRV),       KC_QUOT, LSFT(KC_9), LSFT(KC_0), LSFT(KC_QUOT), KC_SCLN,
+         KC_EQL, KC_MINS, LSFT(KC_EQL), LSFT(KC_MINS), LSFT(KC_GRV),       KC_QUOT, LSFT(KC_9), LSFT(KC_0), LSFT(KC_QUOT), KC_DEL,
          KC_TAB, UC(L'ö'), KC_LBRC, KC_RBRC, LSFT(KC_BSLASH),              LSFT(KC_6), LSFT(KC_7), UC(L'ä'), STRUCT_REF, KC_BSLASH,
                                                 _______, _______,                 _______, UC_MOD
     ),
@@ -89,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [UTIL_NUM] = LAYOUT(
          _______, _______, _______, _______, _______,                        _______, KC_7,    KC_8,    KC_9,    _______,
          _______, KC_DOWN, KC_UP, KC_UP,     _______,                        _______, KC_4,    KC_5,    KC_6,    KC_0,
-         _______, _______, _______, _______, _______,                        _______, KC_1,    KC_2,    KC_3,    _______,
+         KC_DOWN, _______, _______, _______, _______,                        _______, KC_1,    KC_2,    KC_3,    _______,
                                                 KC_COMM, KC_DOT,                 _______, KC_0
     ),
 
