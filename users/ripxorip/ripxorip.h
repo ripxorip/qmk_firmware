@@ -90,7 +90,7 @@ enum layer_names {
 #define UTIL_NUM_M4   KC_0
 
 #define TMUX_NAV_R1   _______, _______, _______, _______, _______,                        TMUX_8, TMUX_0, TMUX_1, TMUX_2, TMUX_3
-#define TMUX_NAV_R2   _______, _______, TMUX_CREATE, _______, _______,                    LCTL(KC_LEFT), LCTL(KC_DOWN), LCTL(KC_UP), LCTL(KC_RIGHT), _______
+#define TMUX_NAV_R2   _______, _______, _______, TMUX_CREATE, _______,                    LCTL(KC_LEFT), LCTL(KC_DOWN), LCTL(KC_UP), LCTL(KC_RIGHT), _______
 #define TMUX_NAV_R3   _______, _______, _______, _______, _______,                        TMUX_9, TMUX_4, TMUX_5, TMUX_6, TMUX_7
 #define TMUX_NAV_M1   VIM_VSPLIT
 #define TMUX_NAV_M2   VIM_SPLIT
