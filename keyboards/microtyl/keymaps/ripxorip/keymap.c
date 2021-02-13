@@ -60,6 +60,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             TMUX_NAV_R3,
             TMUX_NAV_M1, TMUX_NAV_M2, TMUX_NAV_M3, TMUX_NAV_M4
     ),
+    [VIM_NAV] = LAYOUT(
+            VIM_NAV_R1,
+            VIM_NAV_R2,
+            VIM_NAV_R3,
+            VIM_NAV_M1, VIM_NAV_M2, VIM_NAV_M3, VIM_NAV_M4
+    ),
     [FUSION_360] = LAYOUT(
             FUSION_360_R1,
             FUSION_360_R2,

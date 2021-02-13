@@ -208,6 +208,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_BTN3);
             }
             break;
+        case VIM_NAV_UP:
+            if (record->event.pressed) {
+                SEND_STRING(""SS_TAP(X_UP)"");
+            }
+            else
+            {
+                layer_clear();
+                layer_move(BASE);
+            }
+            break;
+        case VIM_NAV_DOWN:
+            if (record->event.pressed) {
+                SEND_STRING(""SS_TAP(X_DOWN)"");
+            }
+            else
+            {
+                layer_clear();
+                layer_move(BASE);
+            }
+            break;
         case FUSION_360_PAN:
             if (record->event.pressed) {
                 register_code(KC_BTN3);

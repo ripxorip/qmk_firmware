@@ -29,6 +29,8 @@ enum ripxorip_keycodes
     KVM_SET_MAC,
     FUSION_360_ORBIT,
     FUSION_360_PAN,
+    VIM_NAV_UP,
+    VIM_NAV_DOWN,
     STRUCT_REF
 };
 
@@ -39,6 +41,7 @@ enum layer_names {
     LOWER,
     FN_LAYER,
     TMUX_NAV,
+    VIM_NAV,
     FUSION_360,
     UTIL_NUM
 };
@@ -50,16 +53,16 @@ enum layer_names {
  *************************************************************/
 
 #define BASE_R1   KC_Q   , KC_W   , KC_F   , KC_P   , KC_B , KC_J   , KC_L   , KC_U   , KC_Y   , KC_SCLN
-#define BASE_R2   CTL_T(KC_A) , SFT_T(KC_R) , LT(TMUX_NAV, KC_S), LT(UTIL_NUM, KC_T) , KC_G, ALT_T(KC_M)   , ALT_T(KC_N)   , GUI_T(KC_E)   , SFT_T(KC_I)   , CTL_T(KC_O)
-#define BASE_R3   KC_Z, KC_X, LT(FN_LAYER, KC_C), GUI_T(KC_D), KC_V, KC_K   , KC_H   , KC_COMM, KC_DOT , KC_SLSH
+#define BASE_R2   CTL_T(KC_A) , SFT_T(KC_R) , LT(TMUX_NAV, KC_S), LT(UTIL_NUM, KC_T) , GUI_T(KC_G), ALT_T(KC_M)   , ALT_T(KC_N)   , GUI_T(KC_E)   , SFT_T(KC_I)   , CTL_T(KC_O)
+#define BASE_R3   KC_Z, KC_X, LT(FN_LAYER, KC_C), KC_D, KC_V, KC_K   , KC_H   , KC_COMM, KC_DOT , KC_SLSH
 #define BASE_M1   LT(UPPER, KC_ESC)
 #define BASE_M2   LT(LOWER, KC_SPC)
 #define BASE_M3   LT(LOWER, KC_BSPC)
 #define BASE_M4   LT(UPPER, KC_ENT)
 
 #define LOWER_R1   _______, KC_MS_WH_LEFT, KC_MS_U, KC_MS_WH_RIGHT, _______,  LCTL(KC_LEFT), LCTL(KC_DOWN), LCTL(KC_UP), LCTL(KC_RIGHT), _______
-#define LOWER_R2   KC_BTN1, KC_MS_L, KC_MS_D, KC_MS_R, _______,                        KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_LSFT
-#define LOWER_R3     _______, KC_WH_D, KC_BTN2, KC_WH_U, _______,                        KC_HOME, KC_PGDOWN, KC_ESC, KC_PGUP, KC_END
+#define LOWER_R2   KC_TAB, KC_LSFT, KC_MS_D, TO(VIM_NAV), _______,                        KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_LSFT
+#define LOWER_R3   _______, KC_WH_D, KC_BTN2, KC_WH_U, _______,                        KC_HOME, KC_PGDOWN, KC_ESC, KC_PGUP, KC_END
 #define LOWER_M1   _______
 #define LOWER_M2   _______
 #define LOWER_M3   _______
@@ -88,6 +91,14 @@ enum layer_names {
 #define UTIL_NUM_M2   KC_DOT
 #define UTIL_NUM_M3   _______
 #define UTIL_NUM_M4   KC_0
+
+#define VIM_NAV_R1   _______, _______, _______, _______, _______,                        _______, KC_7,    KC_8,    KC_9,    _______
+#define VIM_NAV_R2   _______, VIM_NAV_DOWN, VIM_NAV_UP, VIM_NAV_UP, _______,             _______, KC_4,    KC_5,    KC_6,    KC_0
+#define VIM_NAV_R3     VIM_NAV_DOWN, _______, _______, _______, _______,                 _______, KC_1,    KC_2,    KC_3,    _______
+#define VIM_NAV_M1   KC_ESC
+#define VIM_NAV_M2   TO(BASE)
+#define VIM_NAV_M3   _______
+#define VIM_NAV_M4   KC_0
 
 #define TMUX_NAV_R1   _______, _______, _______, _______, _______,                        TMUX_8, TMUX_0, TMUX_1, TMUX_2, TMUX_3
 #define TMUX_NAV_R2   _______, _______, _______, TMUX_CREATE, _______,                    LCTL(KC_LEFT), LCTL(KC_DOWN), LCTL(KC_UP), LCTL(KC_RIGHT), _______
