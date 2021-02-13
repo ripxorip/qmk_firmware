@@ -1,134 +1,107 @@
 #pragma once
 
-/* Helpers */
-#define ________  KC_TRNS
-#define _________ KC_TRNS
+#include QMK_KEYBOARD_H
 
-#define RIPXORIP_5x6(\
-  L00, L01, L02, L03, L04, L05,                          R00, R01, R02, R03, R04, R05, \
-  L10, L11, L12, L13, L14, L15,                          R10, R11, R12, R13, R14, R15, \
-  L20, L21, L22, L23, L24, L25,                          R20, R21, R22, R23, R24, R25, \
-  L30, L31, L32, L33, L34, L35,                          R30, R31, R32, R33, R34, R35, \
-            L42, L43,                                              R42, R43,           \
-                      L44, L45,                          R40, R41,                     \
-                                L53, L55,      R50, R52,                               \
-                                L52, L54,      R51, R53                                \
-  ) \
-  { \
-    { L00,   L01,   L02, L03, L04, L05 }, \
-    { L10,   L11,   L12, L13, L14, L15 }, \
-    { L20,   L21,   L22, L23, L24, L25 }, \
-    { L30,   L31,   L32, L33, L34, L35 }, \
-    { KC_NO, KC_NO, L42, L43, L44, L45 }, \
-    { KC_NO, KC_NO, L52, L53, L54, L55 }, \
-                                          \
-    { R00, R01, R02, R03, R04,   R05   }, \
-    { R10, R11, R12, R13, R14,   R15   }, \
-    { R20, R21, R22, R23, R24,   R25   }, \
-    { R30, R31, R32, R33, R34,   R35   }, \
-    { R40, R41, R42, R43, KC_NO, KC_NO }, \
-    { R50, R51, R52, R53, KC_NO, KC_NO }  \
-}
+#define _______ KC_TRNS
 
-#define RIPXORIP_5x6_WRAPPER(...) RIPXORIP_5x6(__VA_ARGS__)
+bool process_record_user(uint16_t keycode, keyrecord_t *record);
 
-/* QWERTY */
-#define _____________QWERTY_L1_____________  KC_Q   , KC_W   , KC_E   , KC_R   , KC_T
-#define _____________QWERTY_L2_____________  KC_A   , KC_S   , KC_D   , KC_F   , KC_G
-#define _____________QWERTY_L3_____________  KC_Z   , KC_X   , KC_C   , KC_V   , KC_B
+enum ripxorip_keycodes
+{
+    TMUX_0 = SAFE_RANGE,
+    TMUX_1,
+    TMUX_2,
+    TMUX_3,
+    TMUX_4,
+    TMUX_5,
+    TMUX_6,
+    TMUX_7,
+    TMUX_8,
+    TMUX_9,
+    VIM_SPLIT,
+    VIM_VSPLIT,
+    TMUX_CREATE,
+    TMUX_SPLIT,
+    TMUX_VSPLIT,
+    KVM_SET_WIN_MAIN,
+    KVM_SET_WORK,
+    KVM_SET_LINUX,
+    KVM_SET_MAC,
+    FUSION_360_ORBIT,
+    FUSION_360_PAN,
+    STRUCT_REF
+};
 
-#define _____________QWERTY_R1_____________  KC_Y   , KC_U   , KC_I   , KC_O   , KC_P
-#define _____________QWERTY_R2_____________  KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN
-#define _____________QWERTY_R3_____________  KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH
+// Defines names for use in layer keycodes and the keymap
+enum layer_names {
+    BASE,
+    UPPER,
+    LOWER,
+    FN_LAYER,
+    TMUX_NAV,
+    FUSION_360,
+    UTIL_NUM
+};
 
-/* COLEMAKE-DHm */
-#define _____________CM_DHm_L1_____________  KC_Q   , KC_W   , KC_F   , KC_P   , KC_B
-#define _____________CM_DHm_L2_____________  KC_A   , KC_R   , KC_S   , KC_T   , KC_G
-#define _____________CM_DHm_L3_____________  KC_Z   , KC_X   , KC_C   , KC_D   , KC_V
+/*************************************************************
+ *
+ * THE LAYERS
+ *
+ *************************************************************/
 
-#define _____________CM_DHm_R1_____________  KC_J   , KC_L   , KC_U   , KC_Y   , KC_SCLN
-#define _____________CM_DHm_R2_____________  KC_M   , KC_N   , KC_E   , KC_I   , KC_O
-#define _____________CM_DHm_R3_____________  KC_K   , KC_H   , KC_COMM, KC_DOT , KC_SLSH
+#define BASE_R1   KC_Q   , KC_W   , KC_F   , KC_P   , KC_B , KC_J   , KC_L   , KC_U   , KC_Y   , KC_SCLN
+#define BASE_R2   CTL_T(KC_A) , SFT_T(KC_R) , GUI_T(KC_S), LT(UTIL_NUM, KC_T) , KC_G, ALT_T(KC_M)   , ALT_T(KC_N)   , GUI_T(KC_E)   , SFT_T(KC_I)   , CTL_T(KC_O)
+#define BASE_R3   KC_Z, KC_X, LT(FN_LAYER, KC_C), LT(TMUX_NAV, KC_D), KC_V, KC_K   , KC_H   , KC_COMM, KC_DOT , KC_SLSH
+#define BASE_M1   LT(UPPER, KC_ESC)
+#define BASE_M2   LT(LOWER, KC_SPC)
+#define BASE_M3   LT(LOWER, KC_BSPC)
+#define BASE_M4   LT(UPPER, KC_ENT)
 
-/* Numbers and fn for noobs */
-#define ____________NUMBERS_L______________  KC_1, KC_2, KC_3, KC_4, KC_5
-#define ____________NUMBERS_R______________  KC_6, KC_7, KC_8, KC_9, KC_0
+#define LOWER_R1   _______, KC_MS_WH_LEFT, KC_MS_U, KC_MS_WH_RIGHT, _______,  LCTL(KC_LEFT), LCTL(KC_DOWN), LCTL(KC_UP), LCTL(KC_RIGHT), _______
+#define LOWER_R2   KC_BTN1, KC_MS_L, KC_MS_D, KC_MS_R, _______,                        KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_LSFT
+#define LOWER_R3     _______, KC_WH_D, KC_BTN2, KC_WH_U, _______,                        KC_HOME, KC_PGDOWN, KC_ESC, KC_PGUP, KC_END
+#define LOWER_M1   _______
+#define LOWER_M2   _______
+#define LOWER_M3   _______
+#define LOWER_M4   KC_TAB
 
-#define __________________F_L______________  KC_F1, KC_F2, KC_F3, KC_F4, KC_F5
-#define __________________F_R______________  KC_F6, KC_F7, KC_F8, KC_F9, KC_F10
+#define UPPER_R1   LSFT(KC_1), LSFT(KC_2), LSFT(KC_3), LSFT(KC_4), LSFT(KC_5),       KC_GRV, LSFT(KC_LBRC), LSFT(KC_RBRC), LSFT(KC_8), UC(L'å')
+#define UPPER_R2   KC_EQL, KC_MINS, LSFT(KC_EQL), LSFT(KC_MINS), LSFT(KC_GRV),       KC_QUOT, LSFT(KC_9), LSFT(KC_0), LSFT(KC_QUOT), KC_DEL
+#define UPPER_R3     KC_TAB, UC(L'ö'), KC_LBRC, KC_RBRC, LSFT(KC_BSLASH),              LSFT(KC_6), LSFT(KC_7), UC(L'ä'), STRUCT_REF, KC_BSLASH
+#define UPPER_M1   _______
+#define UPPER_M2   _______
+#define UPPER_M3   _______
+#define UPPER_M4   UC_MOD
 
-#if 0
-/* Below is kept for reference */
-#if (!defined(LAYOUT) && defined(KEYMAP))
-#    define LAYOUT KEYMAP
-#endif
+#define FN_R1   RESET, _______, _______, _______, _______,                          _______, KC_F7, KC_F8, KC_F9, KC_F10
+#define FN_R2   _______, _______, _______, _______, _______,                        _______, KC_F4, KC_F5, KC_F6, KC_F11
+#define FN_R3     TO(FUSION_360), _______, _______, _______, _______,                        _______, KC_F1, KC_F2, KC_F3, KC_F12
+#define FN_M1   _______
+#define FN_M2   _______
+#define FN_M3   _______
+#define FN_M4   _______
 
-#undef MK_MOMENTARY_ACCEL
-#define MK_3_SPEED 1
+#define UTIL_NUM_R1   _______, _______, _______, _______, _______,                        _______, KC_7,    KC_8,    KC_9,    _______
+#define UTIL_NUM_R2   _______, KC_DOWN, KC_UP, KC_UP,     _______,                        _______, KC_4,    KC_5,    KC_6,    KC_0
+#define UTIL_NUM_R3     KC_DOWN, _______, _______, _______, _______,                        _______, KC_1,    KC_2,    KC_3,    _______
+#define UTIL_NUM_M1   KC_COMM
+#define UTIL_NUM_M2   KC_DOT
+#define UTIL_NUM_M3   _______
+#define UTIL_NUM_M4   KC_0
 
-#define LAYOUT_ergodox_pretty_wrapper(...)  LAYOUT_ergodox_pretty(__VA_ARGS__)
-#define LAYOUT_wrapper(...)                 LAYOUT(__VA_ARGS__)
-#define LAYOUT_5x6_wrapper(...)             LAYOUT_5x6(__VA_ARGS__)
-#define KC_MLSF OSM(MOD_LSFT)
-#define KC_MRSF OSM(MOD_RSFT)
+#define TMUX_NAV_R1   _______, _______, _______, _______, _______,                        TMUX_8, TMUX_0, TMUX_1, TMUX_2, TMUX_3
+#define TMUX_NAV_R2   _______, _______, TMUX_CREATE, _______, _______,                    LCTL(KC_LEFT), LCTL(KC_DOWN), LCTL(KC_UP), LCTL(KC_RIGHT), _______
+#define TMUX_NAV_R3   _______, _______, _______, _______, _______,                        TMUX_9, TMUX_4, TMUX_5, TMUX_6, TMUX_7
+#define TMUX_NAV_M1   VIM_VSPLIT
+#define TMUX_NAV_M2   VIM_SPLIT
+#define TMUX_NAV_M3   TMUX_SPLIT
+#define TMUX_NAV_M4   TMUX_VSPLIT
 
-#define OS_LGUI OSM(MOD_LGUI)
-#define OS_RGUI OSM(MOD_RGUI)
-#define OS_LSFT OSM(MOD_LSFT)
-#define OS_RSFT OSM(MOD_RSFT)
-#define OS_LCTL OSM(MOD_LCTL)
-#define OS_RCTL OSM(MOD_RCTL)
-#define OS_LALT OSM(MOD_LALT)
-#define OS_RALT OSM(MOD_RALT)
-#define OS_MEH  OSM(MOD_MEH)
-#define OS_HYPR OSM(MOD_HYPR)
-#define MOUSE_L LSFT(KC_WH_D)
-#define MOUSE_R LSFT(KC_WH_U)
-#define OSX_LOCK LCTL(LGUI(KC_Q))
+#define FUSION_360_R1   KC_Q, _______, _______, KC_P, _______,                               _______, _______, _______, _______, _______
+#define FUSION_360_R2   KC_BSPC, _______, FUSION_360_PAN, FUSION_360_ORBIT, KC_L,                               _______, _______, _______, _______, _______
+#define FUSION_360_R3   _______, _______, KC_C, KC_D, KC_I,                               _______, _______, _______, _______, _______
+#define FUSION_360_M1   KC_ESC
+#define FUSION_360_M2   KC_ENT
+#define FUSION_360_M3   _______
+#define FUSION_360_M4   TO(BASE)
 
-// layout parts for easy reuse between keyboard keymaps
-// ,-----+-----+-----+-----+-----,   ,-----+-----+-----+-----+-----,
-// |  1  |  2  |  3  |  4  |  5  |   |  6  |  7  |  8  |  9  |  0  |
-// ,-----+-----+-----+-----+-----,   ,-----+-----+-----+-----+-----,
-#define ________________NUMBERS_L__________________  KC_1, KC_2, KC_3, KC_4, KC_5
-#define ________________NUMBERS_R__________________  KC_6, KC_7, KC_8, KC_9, KC_0
-
-// ,-----+-----+-----+-----+-----,   ,-----+-----+-----+-----+-----,
-// | F1  | F2  | F3  | F4  | F5  |   | F6  | F7  | F8  | F9  | F10 |
-// ,-----+-----+-----+-----+-----,   ,-----+-----+-----+-----+-----,
-#define ______________________F_L__________________  KC_F1, KC_F2, KC_F3, KC_F4, KC_F5
-#define ______________________F_R__________________  KC_F6, KC_F7, KC_F8, KC_F9, KC_F10
-
-// ,-----+-----+-----+-----+-----,   ,-----+-----+-----+-----+-----,
-// |  Q  |  W  |  E  |  R  |  T  |   |  Y  |  U  |  I  |  O  |  P  |
-// ,-----+-----+-----x-----x-----,   ,-----x-----x-----+-----+-----,
-// |  A  |  S  |  D  |  F  |  G  |   |  H  |  J  |  K  |  L  |  ;  |
-// ,-----+-----+-----x-----x-----,   ,-----x-----x-----+-----+-----,
-// |  Z  |  X  |  C  |  V  |  B  |   |  N  |  M  |  ,  |  .  |  /  |
-// ,-----+-----+-----+-----+-----,   ,-----+-----+-----+-----+-----,
-#define _________________QWERTY_L1_________________  KC_Q   , KC_W   , KC_E   , KC_R   , KC_T
-#define _________________QWERTY_L2_________________  KC_A   , KC_S   , KC_D   , KC_F   , KC_G
-#define _________________QWERTY_L3_________________  KC_Z   , KC_X   , KC_C   , KC_V   , KC_B
-
-#define _________________QWERTY_R1_________________  KC_Y   , KC_U   , KC_I   , KC_O   , KC_P
-#define _________________QWERTY_R2_________________  KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN
-#define _________________QWERTY_R3_________________  KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH
-
-#define _____________MOD_QWERTY_L2_________________  CTL_T(KC_A), SFT_T(KC_S), GUI_T(KC_D), ALT_T(KC_F), KC_G
-#define _____________MOD_QWERTY_R2_________________  KC_H       , ALT_T(KC_J), GUI_T(KC_K), SFT_T(KC_L), CTL_T(KC_SCLN)
-
-// ,-----+-----+-----+-----+-----,   ,-----+-----+-----+-----+-----,
-// |  !  |  @  |  {  |  }  |  _  |   |  \  |  7  |  8  |  9  |     |
-// ,-----+-----+-----x-----x-----,   ,-----x-----x-----+-----+-----,
-// |  #  |  $  |  (  |  )  |  -  |   |  =  |  4  |  5  |  6  |  |  |
-// ,-----+-----+-----x-----x-----,   ,-----x-----x-----+-----+-----,
-// |  %  |  ^  |  [  |  ]  |  +  |   |  *  |  1  |  2  |  3  |  /  |
-// ,-----+-----+-----+-----+-----,   ,-----+-----+-----+-----+-----,
-#define _________________SYMBOL_L1_________________  KC_EXLM, KC_AT  , KC_LCBR, KC_RCBR, KC_UNDS
-#define _________________SYMBOL_L2_________________  KC_HASH, KC_DLR , KC_LPRN, KC_RPRN, KC_MINS
-#define _________________SYMBOL_L3_________________  KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_PLUS
-
-#define _________________SYMBOL_R1_________________  KC_BSLS, KC_P7, KC_P8 , KC_P9, KC_PAST
-#define _________________SYMBOL_R2_________________  KC_EQL , KC_P4, KC_P5, KC_P6, KC_PPLS
-#define _________________SYMBOL_R3_________________  KC_ASTR, KC_P1, KC_P2, KC_P3, KC_PMNS
-#endif
