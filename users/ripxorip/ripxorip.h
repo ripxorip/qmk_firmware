@@ -50,8 +50,8 @@ enum layer_names {
  *************************************************************/
 
 #define BASE_R1   KC_Q   , KC_W   , KC_F   , KC_P   , KC_B , KC_J   , KC_L   , KC_U   , KC_Y   , KC_SCLN
-#define BASE_R2   CTL_T(KC_A) , SFT_T(KC_R) , GUI_T(KC_S), LT(UTIL_NUM, KC_T) , KC_G, ALT_T(KC_M)   , ALT_T(KC_N)   , GUI_T(KC_E)   , SFT_T(KC_I)   , CTL_T(KC_O)
-#define BASE_R3   KC_Z, KC_X, LT(FN_LAYER, KC_C), LT(TMUX_NAV, KC_D), KC_V, KC_K   , KC_H   , KC_COMM, KC_DOT , KC_SLSH
+#define BASE_R2   CTL_T(KC_A) , SFT_T(KC_R) , LT(TMUX_NAV, KC_S), LT(UTIL_NUM, KC_T) , KC_G, ALT_T(KC_M)   , ALT_T(KC_N)   , GUI_T(KC_E)   , SFT_T(KC_I)   , CTL_T(KC_O)
+#define BASE_R3   KC_Z, KC_X, LT(FN_LAYER, KC_C), GUI_T(KC_D), KC_V, KC_K   , KC_H   , KC_COMM, KC_DOT , KC_SLSH
 #define BASE_M1   LT(UPPER, KC_ESC)
 #define BASE_M2   LT(LOWER, KC_SPC)
 #define BASE_M3   LT(LOWER, KC_BSPC)
