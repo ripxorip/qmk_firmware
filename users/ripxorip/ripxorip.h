@@ -31,6 +31,7 @@ enum ripxorip_keycodes
     FUSION_360_PAN,
     VIM_NAV_UP,
     VIM_NAV_DOWN,
+    VIM_NAV_ESC,
     STRUCT_REF
 };
 
@@ -95,7 +96,7 @@ enum layer_names {
 #define VIM_NAV_R1   _______, _______, _______, _______, _______,                        _______, KC_7,    KC_8,    KC_9,    _______
 #define VIM_NAV_R2   _______, VIM_NAV_DOWN, VIM_NAV_UP, KC_DOT, _______,             _______, KC_4,    KC_5,    KC_6,    KC_0
 #define VIM_NAV_R3   VIM_NAV_DOWN, KC_MINS, LSFT(KC_EQL), LSFT(KC_8), KC_SLSH,                 _______, KC_1,    KC_2,    KC_3,    _______
-#define VIM_NAV_M1   KC_ESC
+#define VIM_NAV_M1   VIM_NAV_ESC
 #define VIM_NAV_M2   TO(BASE)
 #define VIM_NAV_M3   _______
 #define VIM_NAV_M4   KC_0

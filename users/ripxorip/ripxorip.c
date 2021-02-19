@@ -218,6 +218,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_move(BASE);
             }
             break;
+        case VIM_NAV_ESC:
+            if (record->event.pressed) {
+                SEND_STRING(""SS_TAP(X_ESC)"");
+            }
+            else
+            {
+                layer_clear();
+                layer_move(BASE);
+            }
+            break;
         case VIM_NAV_DOWN:
             if (record->event.pressed) {
                 SEND_STRING(""SS_TAP(X_DOWN)"");
