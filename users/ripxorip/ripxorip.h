@@ -63,7 +63,7 @@ enum layer_names {
 
 #define LOWER_R1   _______, KC_MS_WH_LEFT, KC_MS_U, KC_MS_WH_RIGHT, _______,  LCTL(KC_LEFT), LCTL(KC_DOWN), LCTL(KC_UP), LCTL(KC_RIGHT), _______
 #define LOWER_R2   KC_TAB, KC_LSFT, KC_MS_D, TO(VIM_NAV), _______,                        KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_LSFT
-#define LOWER_R3   _______, KC_WH_D, KC_BTN2, KC_WH_U, _______,                        KC_HOME, KC_PGDOWN, KC_ESC, KC_PGUP, KC_END
+#define LOWER_R3   _______, KC_WH_D, KC_BTN2, KC_WH_U, _______,                        KC_HOME, KC_PGDOWN, KC_PGUP, KC_END, KC_END
 #define LOWER_M1   _______
 #define LOWER_M2   _______
 #define LOWER_M3   _______
