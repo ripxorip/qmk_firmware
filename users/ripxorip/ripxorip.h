@@ -55,7 +55,7 @@ enum layer_names {
 
 #define BASE_R1   KC_Q   , KC_W   , KC_F   , KC_P   , KC_B , KC_J   , KC_L   , KC_U   , KC_Y   , KC_SCLN
 #define BASE_R2   CTL_T(KC_A) , SFT_T(KC_R) , LT(TMUX_NAV, KC_S), LT(UTIL_NUM, KC_T) , GUI_T(KC_G), ALT_T(KC_M)   , ALT_T(KC_N)   , GUI_T(KC_E)   , SFT_T(KC_I)   , CTL_T(KC_O)
-#define BASE_R3   KC_Z, KC_X, LT(FN_LAYER, KC_C), KC_D, KC_V, KC_K   , KC_H   , KC_COMM, KC_DOT , KC_SLSH
+#define BASE_R3   CTL_T(KC_Z), KC_X, LT(FN_LAYER, KC_C), KC_D, KC_V, KC_K   , KC_H   , KC_COMM, KC_DOT , KC_SLSH
 #define BASE_M1   LT(UPPER, KC_ESC)
 #define BASE_M2   LT(LOWER, KC_SPC)
 #define BASE_M3   LT(LOWER, KC_BSPC)
@@ -63,7 +63,7 @@ enum layer_names {
 
 #define LOWER_R1   _______, KC_MS_WH_LEFT, KC_MS_U, KC_MS_WH_RIGHT, _______,  LCTL(KC_LEFT), LCTL(KC_DOWN), LCTL(KC_UP), LCTL(KC_RIGHT), _______
 #define LOWER_R2   KC_TAB, KC_LSFT, KC_LALT, TO(VIM_NAV), _______,                        KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_LSFT
-#define LOWER_R3   _______, KC_WH_D, KC_BTN2, KC_WH_U, _______,                        KC_HOME, KC_PGDOWN, KC_PGUP, KC_END, KC_END
+#define LOWER_R3   KC_TAB, KC_WH_D, KC_BTN2, KC_WH_U, _______,                        KC_HOME, KC_PGDOWN, KC_PGUP, KC_END, KC_END
 #define LOWER_M1   _______
 #define LOWER_M2   _______
 #define LOWER_M3   _______
