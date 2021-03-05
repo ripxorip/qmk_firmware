@@ -1,5 +1,12 @@
 #include "ripxorip.h"
 
+// Tap Dance definitions
+qk_tap_dance_action_t tap_dance_actions[] = {
+    // Tap once for Escape, twice for Caps Lock
+    [TD_ESC_Q] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_Q),
+    [TD_SCLN_CLN] = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, LSFT(KC_SCLN)),
+};
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
 

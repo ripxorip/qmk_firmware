@@ -6,6 +6,12 @@
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record);
 
+enum {
+    TD_ESC_Q,
+    TD_SCLN_CLN
+};
+
+
 enum ripxorip_keycodes
 {
     TMUX_0 = SAFE_RANGE,
@@ -53,7 +59,7 @@ enum layer_names {
  *
  *************************************************************/
 
-#define BASE_R1   KC_Q   , KC_W   , KC_F   , KC_P   , KC_B , KC_J   , KC_L   , KC_U   , KC_Y   , KC_SCLN
+#define BASE_R1   TD(TD_ESC_Q)   , KC_W   , KC_F   , KC_P   , KC_B , KC_J   , KC_L   , KC_U   , KC_Y   , TD(TD_SCLN_CLN)
 #define BASE_R2   CTL_T(KC_A) , SFT_T(KC_R) , LT(TMUX_NAV, KC_S), LT(UTIL_NUM, KC_T) , GUI_T(KC_G), ALT_T(KC_M)   , ALT_T(KC_N)   , GUI_T(KC_E)   , SFT_T(KC_I)   , CTL_T(KC_O)
 #define BASE_R3   CTL_T(KC_Z), KC_X, LT(FN_LAYER, KC_C), KC_D, KC_V, KC_K   , KC_H   , KC_COMM, KC_DOT , KC_SLSH
 #define BASE_M1   LT(UPPER, KC_ESC)
