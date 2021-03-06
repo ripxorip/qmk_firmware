@@ -72,6 +72,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             FUSION_360_R3,
             FUSION_360_M1, FUSION_360_M2, FUSION_360_M3, FUSION_360_M4
     ),
+    [LEADER] = LAYOUT(
+            LEADER_R1,
+            LEADER_R2,
+            LEADER_R3,
+            LEADER_M1, LEADER_M2, LEADER_M3, LEADER_M4
+    ),
 };
 
 

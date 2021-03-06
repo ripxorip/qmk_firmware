@@ -6,12 +6,6 @@
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record);
 
-enum {
-    TD_ESC_Q,
-    TD_SCLN_CLN
-};
-
-
 enum ripxorip_keycodes
 {
     TMUX_0 = SAFE_RANGE,
@@ -38,6 +32,7 @@ enum ripxorip_keycodes
     VIM_NAV_UP,
     VIM_NAV_DOWN,
     VIM_NAV_ESC,
+    Q_LEADER,
     STRUCT_REF
 };
 
@@ -50,6 +45,7 @@ enum layer_names {
     TMUX_NAV,
     VIM_NAV,
     FUSION_360,
+    LEADER,
     UTIL_NUM
 };
 
@@ -59,7 +55,7 @@ enum layer_names {
  *
  *************************************************************/
 
-#define BASE_R1   TD(TD_ESC_Q)   , KC_W   , KC_F   , KC_P   , KC_B , KC_J   , KC_L   , KC_U   , KC_Y   , TD(TD_SCLN_CLN)
+#define BASE_R1   TO(LEADER)   , KC_W   , KC_F   , KC_P   , KC_B , KC_J   , KC_L   , KC_U   , KC_Y   , KC_SCLN
 #define BASE_R2   CTL_T(KC_A) , SFT_T(KC_R) , LT(TMUX_NAV, KC_S), LT(UTIL_NUM, KC_T) , GUI_T(KC_G), ALT_T(KC_M)   , ALT_T(KC_N)   , GUI_T(KC_E)   , SFT_T(KC_I)   , CTL_T(KC_O)
 #define BASE_R3   CTL_T(KC_Z), KC_X, LT(FN_LAYER, KC_C), KC_D, KC_V, KC_K   , KC_H   , KC_COMM, KC_DOT , KC_SLSH
 #define BASE_M1   LT(UPPER, KC_ESC)
@@ -67,7 +63,7 @@ enum layer_names {
 #define BASE_M3   LT(LOWER, KC_BSPC)
 #define BASE_M4   LT(UPPER, KC_ENT)
 
-#define LOWER_R1   _______, KC_MS_WH_LEFT, KC_MS_U, KC_MS_WH_RIGHT, _______,  LCTL(KC_LEFT), LCTL(KC_DOWN), LCTL(KC_UP), LCTL(KC_RIGHT), _______
+#define LOWER_R1   LCTL(KC_Q), KC_MS_WH_LEFT, KC_MS_U, KC_MS_WH_RIGHT, _______,  LCTL(KC_LEFT), LCTL(KC_DOWN), LCTL(KC_UP), LCTL(KC_RIGHT), _______
 #define LOWER_R2   KC_TAB, KC_LSFT, KC_LALT, TO(VIM_NAV), _______,                        KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_LSFT
 #define LOWER_R3   KC_TAB, KC_WH_D, KC_BTN2, KC_WH_U, _______,                        KC_HOME, KC_PGDOWN, KC_PGUP, KC_END, KC_END
 #define LOWER_M1   _______
@@ -123,3 +119,10 @@ enum layer_names {
 #define FUSION_360_M3   _______
 #define FUSION_360_M4   TO(BASE)
 
+#define LEADER_R1   Q_LEADER, _______, _______, _______, _______,                          _______, _______, _______, _______, _______
+#define LEADER_R2   _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______
+#define LEADER_R3   _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______
+#define LEADER_M1   TO(BASE)
+#define LEADER_M2   TO(VIM_NAV)
+#define LEADER_M3   _______
+#define LEADER_M4   _______
