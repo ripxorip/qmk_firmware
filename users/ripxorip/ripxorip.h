@@ -129,7 +129,7 @@ enum layer_names {
 
 #define LEADER_R1   Q_LEADER, _______, _______, TO(VIM_NAV), _______,                          _______, _______, _______, _______, VIM_EXIT
 #define LEADER_R2   _______, _______, _______, _______, _______,                        _______, ALT_TAB_START, _______, _______, _______
-#define LEADER_R3   _______, _______, TO(FN_LAYER), _______, _______,                        _______, TAB_SHIFT_START, _______, _______, _______
+#define LEADER_R3   _______, _______, TO(FN_LAYER), _______, _______,                        _______, _______, TAB_SHIFT_START, _______, _______
 #define LEADER_M1   TO(BASE)
 #define LEADER_M2   ALT_TAB_START
 #define LEADER_M3   _______
@@ -140,12 +140,12 @@ enum layer_names {
 #define APP_SHIFT_R3   _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______
 #define APP_SHIFT_M1   ALT_TAB_END
 #define APP_SHIFT_M2   ALT_TAB_END
-#define APP_SHIFT_M3   _______
+#define APP_SHIFT_M3   ALT_TAB_END
 #define APP_SHIFT_M4   ALT_TAB_END
 
 #define TAB_SHIFT_R1   _______, _______, _______, _______, _______,                          _______, _______, _______, _______, _______
 #define TAB_SHIFT_R2   _______, _______, LCTL(LSFT(KC_TAB)), LCTL(KC_TAB), _______,                        _______, LCTL(KC_TAB), LCTL(LSFT(KC_TAB)), _______, _______
-#define TAB_SHIFT_R3   _______, _______, _______, _______, _______,                        _______, LCTL(KC_TAB), LCTL(LSFT(KC_TAB)), _______, _______
+#define TAB_SHIFT_R3   _______, _______, _______, _______, _______,                        _______, LCTL(LSFT(KC_TAB)), LCTL(KC_TAB), _______, _______
 #define TAB_SHIFT_M1   TO(BASE)
 #define TAB_SHIFT_M2   TO(BASE)
 #define TAB_SHIFT_M3   TO(BASE)
