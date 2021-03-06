@@ -119,10 +119,10 @@ enum layer_names {
 #define FUSION_360_M3   _______
 #define FUSION_360_M4   TO(BASE)
 
-#define LEADER_R1   Q_LEADER, _______, _______, _______, _______,                          _______, _______, _______, _______, _______
+#define LEADER_R1   Q_LEADER, _______, _______, TO(VIM_NAV), _______,                          _______, _______, _______, _______, _______
 #define LEADER_R2   _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______
 #define LEADER_R3   _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______
 #define LEADER_M1   TO(BASE)
-#define LEADER_M2   TO(VIM_NAV)
+#define LEADER_M2   _______
 #define LEADER_M3   _______
 #define LEADER_M4   _______
