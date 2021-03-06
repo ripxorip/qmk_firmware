@@ -78,6 +78,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             LEADER_R3,
             LEADER_M1, LEADER_M2, LEADER_M3, LEADER_M4
     ),
+    [APP_SHIFT] = LAYOUT(
+            APP_SHIFT_R1,
+            APP_SHIFT_R2,
+            APP_SHIFT_R3,
+            APP_SHIFT_M1, APP_SHIFT_M2, APP_SHIFT_M3, APP_SHIFT_M4
+    ),
+    [TAB_SHIFT] = LAYOUT(
+            TAB_SHIFT_R1,
+            TAB_SHIFT_R2,
+            TAB_SHIFT_R3,
+            TAB_SHIFT_M1, TAB_SHIFT_M2, TAB_SHIFT_M3, TAB_SHIFT_M4
+    ),
 };
 
 

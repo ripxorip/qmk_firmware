@@ -249,6 +249,70 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             {
                 unregister_code(KC_BTN3);
             }
+        case ALT_TAB_START:
+            if (record->event.pressed) {
+                register_code(KC_LALT);
+                layer_clear();
+                layer_move(APP_SHIFT);
+                register_code(KC_TAB);
+                unregister_code(KC_TAB);
+            }
+            else
+            {
+            }
+            break;
+        case ALT_TAB_END:
+            if (record->event.pressed) {
+                unregister_code(KC_LALT);
+                layer_clear();
+                layer_move(BASE);
+            }
+            else
+            {
+            }
+            break;
+        case ALT_TAB_NEXT:
+            if (record->event.pressed) {
+                register_code(KC_TAB);
+                unregister_code(KC_TAB);
+            }
+            else
+            {
+            }
+            break;
+        case ALT_TAB_PREVIOUS:
+            if (record->event.pressed) {
+                register_code(KC_LSFT);
+                register_code(KC_TAB);
+                unregister_code(KC_TAB);
+                unregister_code(KC_LSFT);
+            }
+            else
+            {
+            }
+            break;
+        case TAB_SHIFT_START:
+            if (record->event.pressed) {
+            }
+            else
+            {
+                layer_clear();
+                layer_move(TAB_SHIFT);
+                register_code(KC_LCTL);
+                register_code(KC_TAB);
+                unregister_code(KC_LCTL);
+                unregister_code(KC_TAB);
+            }
+            break;
+        case VIM_EXIT:
+            if (record->event.pressed) {
+            }
+            else
+            {
+                SEND_STRING(":qa"SS_TAP(X_ENTER)"");
+                layer_clear();
+                layer_move(BASE);
+            }
             break;
     }
     return true;

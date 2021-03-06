@@ -33,6 +33,12 @@ enum ripxorip_keycodes
     VIM_NAV_DOWN,
     VIM_NAV_ESC,
     Q_LEADER,
+    ALT_TAB_START,
+    ALT_TAB_NEXT,
+    ALT_TAB_PREVIOUS,
+    ALT_TAB_END,
+    TAB_SHIFT_START,
+    VIM_EXIT,
     STRUCT_REF
 };
 
@@ -46,6 +52,8 @@ enum layer_names {
     VIM_NAV,
     FUSION_360,
     LEADER,
+    APP_SHIFT,
+    TAB_SHIFT,
     UTIL_NUM
 };
 
@@ -82,7 +90,7 @@ enum layer_names {
 #define FN_R1   RESET, _______, _______, _______, _______,                          _______, KC_F7, KC_F8, KC_F9, KC_F10
 #define FN_R2   _______, _______, _______, _______, _______,                        _______, KC_F4, KC_F5, KC_F6, KC_F11
 #define FN_R3     TO(FUSION_360), _______, _______, _______, _______,                        _______, KC_F1, KC_F2, KC_F3, KC_F12
-#define FN_M1   _______
+#define FN_M1   TO(BASE)
 #define FN_M2   _______
 #define FN_M3   _______
 #define FN_M4   _______
@@ -119,10 +127,27 @@ enum layer_names {
 #define FUSION_360_M3   _______
 #define FUSION_360_M4   TO(BASE)
 
-#define LEADER_R1   Q_LEADER, _______, _______, TO(VIM_NAV), _______,                          _______, _______, _______, _______, _______
-#define LEADER_R2   _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______
-#define LEADER_R3   _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______
+#define LEADER_R1   Q_LEADER, _______, _______, TO(VIM_NAV), _______,                          _______, _______, _______, _______, VIM_EXIT
+#define LEADER_R2   _______, _______, _______, _______, _______,                        _______, ALT_TAB_START, _______, _______, _______
+#define LEADER_R3   _______, _______, TO(FN_LAYER), _______, _______,                        _______, TAB_SHIFT_START, _______, _______, _______
 #define LEADER_M1   TO(BASE)
-#define LEADER_M2   _______
+#define LEADER_M2   ALT_TAB_START
 #define LEADER_M3   _______
 #define LEADER_M4   _______
+
+#define APP_SHIFT_R1   _______, _______, _______, _______, _______,                          _______, _______, _______, _______, _______
+#define APP_SHIFT_R2   _______, _______, ALT_TAB_PREVIOUS, ALT_TAB_NEXT, _______,                        _______, ALT_TAB_NEXT, ALT_TAB_PREVIOUS, _______, _______
+#define APP_SHIFT_R3   _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______
+#define APP_SHIFT_M1   ALT_TAB_END
+#define APP_SHIFT_M2   ALT_TAB_END
+#define APP_SHIFT_M3   _______
+#define APP_SHIFT_M4   ALT_TAB_END
+
+#define TAB_SHIFT_R1   _______, _______, _______, _______, _______,                          _______, _______, _______, _______, _______
+#define TAB_SHIFT_R2   _______, _______, LCTL(LSFT(KC_TAB)), LCTL(KC_TAB), _______,                        _______, LCTL(KC_TAB), LCTL(LSFT(KC_TAB)), _______, _______
+#define TAB_SHIFT_R3   _______, _______, _______, _______, _______,                        _______, LCTL(KC_TAB), LCTL(LSFT(KC_TAB)), _______, _______
+#define TAB_SHIFT_M1   TO(BASE)
+#define TAB_SHIFT_M2   TO(BASE)
+#define TAB_SHIFT_M3   TO(BASE)
+#define TAB_SHIFT_M4   TO(BASE)
+
