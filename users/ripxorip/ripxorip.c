@@ -200,7 +200,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_BTN3);
             }
             break;
-        case VIM_NAV_UP:
+        case VIM_NUM_NAV_UP:
             if (record->event.pressed) {
                 SEND_STRING(""SS_TAP(X_UP)"");
             }
@@ -210,7 +210,59 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_move(BASE);
             }
             break;
-        case VIM_NAV_ESC:
+        case VIM_WIN_NAV_LEFT:
+            if (record->event.pressed) {
+                register_code(KC_LCTL);
+                register_code(KC_W);
+                unregister_code(KC_LCTL);
+                unregister_code(KC_W);
+                register_code(KC_H);
+            }
+            else
+            {
+                unregister_code(KC_H);
+            }
+            break;
+        case VIM_WIN_NAV_RIGHT:
+            if (record->event.pressed) {
+                register_code(KC_LCTL);
+                register_code(KC_W);
+                unregister_code(KC_LCTL);
+                unregister_code(KC_W);
+                register_code(KC_L);
+            }
+            else
+            {
+                unregister_code(KC_L);
+            }
+            break;
+        case VIM_WIN_NAV_UP:
+            if (record->event.pressed) {
+                register_code(KC_LCTL);
+                register_code(KC_W);
+                unregister_code(KC_LCTL);
+                unregister_code(KC_W);
+                register_code(KC_K);
+            }
+            else
+            {
+                unregister_code(KC_K);
+            }
+            break;
+        case VIM_WIN_NAV_DOWN:
+            if (record->event.pressed) {
+                register_code(KC_LCTL);
+                register_code(KC_W);
+                unregister_code(KC_LCTL);
+                unregister_code(KC_W);
+                register_code(KC_J);
+            }
+            else
+            {
+                unregister_code(KC_J);
+            }
+            break;
+        case VIM_NUM_NAV_ESC:
             if (record->event.pressed) {
                 SEND_STRING(""SS_TAP(X_ESC)"");
             }
@@ -220,7 +272,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_move(BASE);
             }
             break;
-        case VIM_NAV_DOWN:
+        case VIM_NUM_NAV_DOWN:
             if (record->event.pressed) {
                 SEND_STRING(""SS_TAP(X_DOWN)"");
             }
