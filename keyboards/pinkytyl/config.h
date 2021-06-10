@@ -55,7 +55,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
-#define UNICODE_SELECTED_MODES UC_LNX, UC_WINC
+#define UNICODE_SELECTED_MODES UC_LNX
 
 // Default tapping term is 200
 #define TAPPING_TERM 170
