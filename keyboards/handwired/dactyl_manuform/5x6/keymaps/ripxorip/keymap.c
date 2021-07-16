@@ -73,13 +73,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             _______, _______, _______, _______,
             _______, _______, _______, _______
     ),
-    [VIM_NAV] = LAYOUT_WRAPPER(
+    [VIM_WIN_NAV] = LAYOUT_WRAPPER(
             _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-            _______, VIM_NAV_R1, _______,
-            _______, VIM_NAV_R2, _______,
-            _______, VIM_NAV_R3, _______,
+            _______, VIM_WIN_NAV_R1, _______,
+            _______, VIM_WIN_NAV_R2, _______,
+            _______, VIM_WIN_NAV_R3, _______,
             _______, _______, _______, _______,
-            VIM_NAV_M1, VIM_NAV_M2, VIM_NAV_M3, VIM_NAV_M4,
+            VIM_WIN_NAV_M1, VIM_WIN_NAV_M2, VIM_WIN_NAV_M3, VIM_WIN_NAV_M4,
             _______, _______, _______, _______,
             _______, _______, _______, _______
     ),
