@@ -9,10 +9,10 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [BASE] = LAYOUT_WRAPPER(
-            _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-            _______, BASE_R1, _______,
-            _______, BASE_R2, _______,
-            _______, BASE_R3, _______,
+            KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_EQL,
+            KC_TAB, BASE_R1, KC_MINS,
+            KC_LCTL, BASE_R2, KC_QUOT,
+            KC_LSFT, BASE_R3, _______,
             _______, _______, _______, _______,
             BASE_M1, BASE_M2, BASE_M3, BASE_M4,
             _______, _______, _______, _______,
