@@ -15,7 +15,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_LSFT, BASE_R3, _______,
             _______, _______, _______, _______,
             BASE_M1, BASE_M2, BASE_M3, BASE_M4,
-            _______, _______, _______, _______,
+            _______, KC_LALT, _______, _______,
             _______, _______, _______, _______
     ),
 
